@@ -1185,6 +1185,96 @@ namespace TD_Find_Lib
 	}
 
 
+	public class ThingQueryOutfitThing : ThingQueryCategorizedDropdown<ThingDef, string, ThingQueryThingDef, ThingQueryThingDefCategory>
+	{
+		public ThingQueryOutfitThing()
+		{
+			sel = ThingDefOf.Apparel_Parka;
+		}
+
+		public override bool Ordered => true;
+
+		public override IEnumerable<ThingDef> AllOptions() =>
+			base.AllOptions().Where(def => ValidDef(def) && IsApparel(def));
+		public override IEnumerable<ThingDef> AvailableOptions() =>
+			ContentsUtility.AvailableInGame(t => IsApparel(t.def) ? t.def : null);
+
+		public override ThingDef IconDefFor(ThingDef o) => o;//duh
+
+		public override string CategoryFor(ThingDef def) => ThingQueryThingDefCategory.CategoryFor(def);
+
+		public override bool AppliesDirectly2(Thing thing) =>
+			(thing as Pawn)?.outfits?.CurrentApparelPolicy.filter.Allows(sel) ?? false;
+
+		private bool IsApparel(ThingDef def) => typeof(Apparel).IsAssignableFrom(def.thingClass);
+	}
+
+	public class ThingQueryFoodRestrictionThing : ThingQueryCategorizedDropdown<ThingDef, string, ThingQueryThingDef, ThingQueryThingDefCategory>
+	{
+		public ThingQueryFoodRestrictionThing()
+		{
+			sel = ThingDefOf.MealSimple;
+		}
+
+		public override bool Ordered => true;
+
+		public override IEnumerable<ThingDef> AllOptions() =>
+			base.AllOptions().Where(def => ValidDef(def) && IsFood(def));
+		public override IEnumerable<ThingDef> AvailableOptions() =>
+			ContentsUtility.AvailableInGame(t => IsFood(t.def) ? t.def : null);
+
+		public override ThingDef IconDefFor(ThingDef o) => o;//duh
+
+		public override string CategoryFor(ThingDef def) => ThingQueryThingDefCategory.CategoryFor(def);
+
+		public override bool AppliesDirectly2(Thing thing) =>
+			(thing as Pawn)?.foodRestriction?.CurrentFoodPolicy.filter.Allows(sel) ?? false;
+
+		// From Dialog_ManageFoodPolicies.
+		private bool IsFood(ThingDef def) => def.GetStatValueAbstract(StatDefOf.Nutrition) > 0f;
+	}
+
+
+	public class ThingQueryDrugPolicyThing : ThingQueryCategorizedDropdown<ThingDef, string, ThingQueryThingDef, ThingQueryThingDefCategory>
+	{
+		public ThingQueryDrugPolicyThing()
+		{
+			sel = ThingDefOf.Penoxycyline;
+		}
+
+		public override bool Ordered => true;
+
+		public override IEnumerable<ThingDef> AllOptions() =>
+			base.AllOptions().Where(def => ValidDef(def) && IsDrug(def));
+		public override IEnumerable<ThingDef> AvailableOptions() =>
+			ContentsUtility.AvailableInGame(t => IsDrug(t.def) ? t.def : null);
+
+		public override ThingDef IconDefFor(ThingDef o) => o;//duh
+
+		public override string CategoryFor(ThingDef def) => ThingQueryThingDefCategory.CategoryFor(def);
+
+		public override bool AppliesDirectly2(Thing thing)
+		{
+			Pawn pawn = thing as Pawn;
+			DrugPolicyEntry entry = pawn?.drugs?.CurrentPolicy?[sel];
+			if( pawn == null || entry == null )
+			    return false;
+			return (entry.allowedForAddiction && IsAddicted(pawn, entry.drug)) | entry.allowedForJoy | entry.allowScheduled;
+		}
+
+		private static bool IsAddicted(Pawn pawn, ThingDef drug)
+		{
+			if(AddictionUtility.HasChemicalDependency(pawn, drug))
+				return true;
+			ChemicalDef chemicalDef = drug.GetCompProperties<CompProperties_Drug>()?.chemical;
+			if(chemicalDef == null)
+				return false;
+			return AddictionUtility.IsAddicted(pawn, chemicalDef);
+		}
+
+		private bool IsDrug(ThingDef def) => def.IsDrug;
+	}
+
 	public class ThingQueryWork : ThingQueryDropDown<WorkTypeDef>
 	{
 		public ThingQueryWork()
