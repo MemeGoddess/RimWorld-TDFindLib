@@ -40,10 +40,6 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="RimWorldFoWMod">
       <HintPath>..\..\..\..\..\..\workshop\content\294100\2560931731\1.4\Assemblies\RimWorldFoWMod.dll</HintPath>
       <Private>False</Private>
