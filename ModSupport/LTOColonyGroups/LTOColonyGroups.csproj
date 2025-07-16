@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Assemblies</OutputPath>
+    <OutputPath>..\1.6\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,8 +29,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\$(SolutionName) - Release\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
-		<OutputPathFiles>$(OutputPath)..\</OutputPathFiles>
+    <OutputPath>..\1.6\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
+    <OutputPathFiles>$(OutputPath)..\</OutputPathFiles>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
