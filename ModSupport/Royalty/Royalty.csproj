@@ -7,6 +7,7 @@
     <AllowedReferenceRelatedFileExtensions>None</AllowedReferenceRelatedFileExtensions>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\1.6\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
