@@ -28,7 +28,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\TD_Find_Lib.csproj" />
+    <ProjectReference Include="..\..\Source\TD_Find_Lib.csproj">
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ReleaseFiles Include="Defs\**;Patches\**;Languages\**;Sounds\**;Textures\**" />

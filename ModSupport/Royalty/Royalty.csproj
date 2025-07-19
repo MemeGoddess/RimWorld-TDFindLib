@@ -37,12 +37,14 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\TD_Find_Lib.csproj" />
+    <ProjectReference Include="..\..\Source\TD_Find_Lib.csproj">
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ReleaseFiles Include="Defs\**;Patches\**;Languages\**;Sounds\**;Textures\**" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="Build">
-    <Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="@(ReleaseFiles)" DestinationFiles="@(ReleaseFiles-&gt;'$(OutputPathFiles)%(RelativeDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="@(ReleaseFiles)" DestinationFiles="@(ReleaseFiles->'$(OutputPathFiles)%(RelativeDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
 </Project>
