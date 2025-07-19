@@ -862,7 +862,7 @@ namespace TD_Find_Lib
 				case BaseAreas.Home: return map.areaManager.Home[pos];
 				case BaseAreas.BuildRoof: return map.areaManager.BuildRoof[pos];
 				case BaseAreas.NoRoof: return map.areaManager.NoRoof[pos];
-				case BaseAreas.SnowClear: return map.areaManager.SnowClear[pos];
+				case BaseAreas.SnowClear: return map.areaManager.SnowOrSandClear[pos];
 			}
 			return false;
 		}

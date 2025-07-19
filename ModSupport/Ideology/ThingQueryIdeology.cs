@@ -531,6 +531,7 @@ namespace TDFindLib_Ideology
 					break;
 			}
 		}
+
 		protected override ThingQuery Clone()
 		{
 			ThingQueryGauranlen clone = (ThingQueryGauranlen)base.Clone();

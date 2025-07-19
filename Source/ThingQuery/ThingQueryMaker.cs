@@ -54,7 +54,7 @@ namespace TD_Find_Lib
 				//todo: store/save these Reflections calls for speed. meh.
 
 				Log.Message($" Setting {key} = {value}");
-				if (DirectXmlToObject.GetFieldInfoForType(preDef.queryDef.queryClass, key, null) is FieldInfo field)
+				if (XmlToObjectUtils.DirectGetFieldByName(preDef.queryDef.queryClass, key, null) is FieldInfo field)
 				{
 					object obj = ConvertHelper.Convert(value, field.FieldType);
 					field.SetValue(query, obj);

@@ -12,6 +12,6 @@ namespace TDFindLib_RealFOW
 	public class ThingQueryRealFOW : ThingQuery
 	{
 		public override bool AppliesDirectlyTo(Thing thing) =>
-			thing.fowIsVisible();
+			thing.FowIsVisible();
 	}
 }
