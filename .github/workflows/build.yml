@@ -26,13 +26,6 @@ jobs:
         with: 
           path: 'mod'
 
-      - name: Check Steam Workshop Dependencies
-        run: |
-          cd mod
-          ls -l
-          ls -l Workshop
-          tree Workshop
-
       - name: Build with dotnet build
         working-directory: mod
         run: |
