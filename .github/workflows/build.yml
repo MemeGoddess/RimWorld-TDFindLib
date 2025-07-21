@@ -29,15 +29,19 @@ jobs:
       - name: Remove old binary
         working-directory: mod
         run: |
-            ls -l
-            ls -l 1.6
-            ls -l 1.6/Assemblies
             rm -f TD_Find_Lib.dll
             rm -f TD_Find_Lib.pdb
 
       - name: Build with dotnet build
         working-directory: mod
-        run: dotnet build "Source/TD_Find_Lib.csproj" --configuration Release
+        run: |
+          dotnet build "Source/TD_Find_Lib.csproj" --configuration Release
+          dotnet build "ModSupport\Biotech\Biotech.csproj" --configuration Release
+          dotnet build "ModSupport\CAIFOW\CAIFOW.csproj" --configuration Release
+          dotnet build "ModSupport\Ideology\Ideology.csproj" --configuration Release
+          dotnet build "ModSupport\LTOColonyGroups\LTOColonyGroups.csproj" --configuration Release
+          dotnet build "ModSupport\RealFOW\RealFOW.csproj" --configuration Release
+          dotnet build "ModSupport\Royalty\Royalty.csproj" --configuration Release
 
       - name: Cleanup
         working-directory: mod
