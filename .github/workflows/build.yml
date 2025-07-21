@@ -26,11 +26,11 @@ jobs:
         with: 
           path: 'mod'
 
-      - name: Remove old binary
-        working-directory: mod
+      - name: Check Steam Workshop Dependencies
         run: |
-            rm -f TD_Find_Lib.dll
-            rm -f TD_Find_Lib.pdb
+          cd mod
+          ls -l
+          ls -l Workshop
 
       - name: Build with dotnet build
         working-directory: mod
