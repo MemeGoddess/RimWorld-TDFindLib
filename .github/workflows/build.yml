@@ -3,7 +3,7 @@ name: Build and Deploy to Steam Workshop
 on:
   push:
     branches:
-      - master
+      - feat/pipeline
 
 jobs:
   build:
@@ -27,8 +27,11 @@ jobs:
           path: 'mod'
 
       - name: Remove old binary
-        working-directory: mod/1.6/Assemblies/
+        working-directory: mod
         run: |
+            ls -l
+            ls -l 1.6
+            ls -l 1.6/Assemblies
             rm -f TD_Find_Lib.dll
             rm -f TD_Find_Lib.pdb
 
