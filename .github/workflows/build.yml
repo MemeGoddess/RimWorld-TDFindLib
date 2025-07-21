@@ -41,7 +41,7 @@ jobs:
           dotnet build "ModSupport\CAIFOW\CAIFOW.csproj" --configuration Release
           dotnet build "ModSupport\Ideology\Ideology.csproj" --configuration Release
           dotnet build "ModSupport\LTOColonyGroups\LTOColonyGroups.csproj" --configuration Release
-          dotnet build "ModSupport\RealFOW\RealFOW.csproj" --configuration Release
+          # dotnet build "ModSupport\RealFOW\RealFOW.csproj" --configuration Release # This is disabled because it's .NETFramework 4.8.1
           dotnet build "ModSupport\Royalty\Royalty.csproj" --configuration Release
 
       - name: Cleanup
