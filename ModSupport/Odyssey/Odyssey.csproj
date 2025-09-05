@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>..\..\1.6\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
+    <RootNamespace>TDFindLib_Odyssey</RootNamespace>
+    <AssemblyName>TDFindLib_Odyssey</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\TD_Find_Lib.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
