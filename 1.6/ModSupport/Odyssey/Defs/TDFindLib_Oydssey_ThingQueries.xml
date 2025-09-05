@@ -9,6 +9,7 @@
             <li>Query_IsUnique</li>
             <li>Query_GravshipFuel</li>
             <li>Query_GravshipCapacity</li>
+            <li>Query_GravshipIsOnCooldown</li>
         </subQueries>
     </TD_Find_Lib.ThingQueryCategoryDef>
 
@@ -30,6 +31,13 @@
         <defName>Query_GravshipCapacity</defName>
         <label>gravship capacity %</label>
         <queryClass>TDFindLib_Odyssey.ThingQueryPercentCapacity</queryClass>
+        <mod>Ludeon.RimWorld.Odyssey</mod>
+    </TD_Find_Lib.ThingQueryDef>
+
+    <TD_Find_Lib.ThingQueryDef>
+        <defName>Query_GravshipIsOnCooldown</defName>
+        <label>gravship cooling down</label>
+        <queryClass>TDFindLib_Odyssey.ThingQueryIsOnCooldown</queryClass>
         <mod>Ludeon.RimWorld.Odyssey</mod>
     </TD_Find_Lib.ThingQueryDef>
 </Defs>

@@ -20,13 +20,11 @@ namespace TDFindLib_Odyssey
 	    public override bool AppliesDirectlyTo(Thing thing)
 	    {
 		    if (thing.TryGetComp<CompPilotConsole>() is CompPilotConsole console)
-			    return sel.Includes(console.engine.TotalFuel);
+			    return sel.Includes(console.engine.TotalFuel / console.engine.MaxFuel);
 
 		    return false;
 	    }
     }
-
-	//FuelLeft
 
 	public class ThingQueryPercentCapacity : ThingQueryFloatRange
 	{
@@ -39,7 +37,12 @@ namespace TDFindLib_Odyssey
 		}
 	}
 
-	// CapacityLeft
-
-	// IsOnCooldown
+	public class ThingQueryIsOnCooldown : ThingQuery
+	{
+		public override bool AppliesDirectlyTo(Thing thing)
+		{
+			return thing.TryGetComp<CompPilotConsole>() is CompPilotConsole console &&
+			       console.engine.cooldownCompleteTick > Find.TickManager.TicksGame;
+		}
+	}
 }
