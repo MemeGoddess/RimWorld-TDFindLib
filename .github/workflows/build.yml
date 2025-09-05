@@ -36,6 +36,7 @@ jobs:
           dotnet build "ModSupport\LTOColonyGroups\LTOColonyGroups.csproj" --configuration Release
           # dotnet build "ModSupport\RealFOW\RealFOW.csproj" --configuration Release # This is disabled because it's .NETFramework 4.8.1
           dotnet build "ModSupport\Royalty\Royalty.csproj" --configuration Release
+          dotnet build "ModSupport\Odyssey\Odyssey.csproj" --configuration Release
 
       - name: Cleanup
         working-directory: mod
