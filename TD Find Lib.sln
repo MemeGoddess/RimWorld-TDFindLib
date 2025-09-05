@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD_Find_Lib", "Source\TD_Find_Lib.csproj", "{D7D21B4A-1DA7-41D8-B202-C58CA8FA62AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TD_Find_Lib", "Source\TD_Find_Lib.csproj", "{D7D21B4A-1DA7-41D8-B202-C58CA8FA62AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTOColonyGroups", "ModSupport\LTOColonyGroups\LTOColonyGroups.csproj", "{70B818C5-84E1-409D-82A1-030ECAB170FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTOColonyGroups", "ModSupport\LTOColonyGroups\LTOColonyGroups.csproj", "{70B818C5-84E1-409D-82A1-030ECAB170FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealFOW", "ModSupport\RealFOW\RealFOW.csproj", "{6F86326B-B5B9-48FA-9E5A-C0DF2FDACCF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAIFOW", "ModSupport\CAIFOW\CAIFOW.csproj", "{C89DCD41-5C6D-4DD8-A1A7-9C4C5C704CB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAIFOW", "ModSupport\CAIFOW\CAIFOW.csproj", "{C89DCD41-5C6D-4DD8-A1A7-9C4C5C704CB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Royalty", "ModSupport\Royalty\Royalty.csproj", "{EF3C0B53-9EE9-4E55-B124-48E6601BEC18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Royalty", "ModSupport\Royalty\Royalty.csproj", "{EF3C0B53-9EE9-4E55-B124-48E6601BEC18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideology", "ModSupport\Ideology\Ideology.csproj", "{4A6065EA-22BD-4BA8-B9E7-E859109275B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ideology", "ModSupport\Ideology\Ideology.csproj", "{4A6065EA-22BD-4BA8-B9E7-E859109275B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biotech", "ModSupport\Biotech\Biotech.csproj", "{5A9A7037-630D-4C09-AFE3-9BA55B5035F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biotech", "ModSupport\Biotech\Biotech.csproj", "{5A9A7037-630D-4C09-AFE3-9BA55B5035F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Odyssey", "ModSupport\Odyssey\Odyssey.csproj", "{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{5A9A7037-630D-4C09-AFE3-9BA55B5035F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A9A7037-630D-4C09-AFE3-9BA55B5035F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A9A7037-630D-4C09-AFE3-9BA55B5035F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
