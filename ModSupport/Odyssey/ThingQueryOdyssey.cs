@@ -45,4 +45,18 @@ namespace TDFindLib_Odyssey
 			       console.engine.cooldownCompleteTick > Find.TickManager.TicksGame;
 		}
 	}
+
+	[StaticConstructorOnStartup]
+	public static class ExpansionHider
+	{
+		static ExpansionHider()
+		{
+			ThingQueryMaker.EnsureStaticInit();
+
+			if (!ModsConfig.OdysseyActive)
+				foreach (ThingQuerySelectableDef def in DefDatabase<ThingQuerySelectableDef>.AllDefsListForReading)
+					if (def.mod == ModContentPack.OdysseyModPackageId)
+						def.devOnly = true;
+		}
+	}
 }
