@@ -1284,6 +1284,36 @@ namespace TD_Find_Lib
 		private bool IsDrug(ThingDef def) => def.IsDrug;
 	}
 
+	public class ThingQueryKeepInInventoryThing : ThingQueryCategorizedDropdown<ThingDef, string, ThingQueryThingDef, ThingQueryThingDefCategory>
+	{
+		public ThingQueryKeepInInventoryThing()
+		{
+			sel = ThingDefOf.Penoxycyline;
+		}
+
+		public override bool Ordered => true;
+
+		public override IEnumerable<ThingDef> AllOptions() =>
+			base.AllOptions().Where(def => ValidDef(def) && IsDrug(def));
+		public override IEnumerable<ThingDef> AvailableOptions() =>
+			ContentsUtility.AvailableInGame(t => IsDrug(t.def) ? t.def : null);
+
+		public override ThingDef IconDefFor(ThingDef o) => o;//duh
+
+		public override string CategoryFor(ThingDef def) => ThingQueryThingDefCategory.CategoryFor(def);
+
+		public override bool AppliesDirectly2(Thing thing)
+		{
+			Pawn pawn = thing as Pawn;
+			DrugPolicyEntry entry = pawn?.drugs?.CurrentPolicy?[sel];
+			if( pawn == null || entry == null )
+			    return false;
+			return entry.takeToInventory > 0;
+		}
+
+		private bool IsDrug(ThingDef def) => def.IsDrug;
+	}
+
 	public class ThingQueryWork : ThingQueryDropDown<WorkTypeDef>
 	{
 		public ThingQueryWork()

@@ -103,6 +103,7 @@
 			<li>Query_AssignOutfitThing</li>
 			<li>Query_AssignFoodThing</li>
 			<li>Query_AssignDrugThing</li>
+			<li>Query_KeepInInventory</li>
 		</subQueries>
 	</TD_Find_Lib.ThingQueryCategoryDef>
 
@@ -280,11 +281,16 @@
 	</TD_Find_Lib.ThingQueryDef>
 
 	<TD_Find_Lib.ThingQueryDef>
+		<defName>Query_KeepInInventory</defName>
+		<label>keep in inventory</label>
+		<queryClass>TD_Find_Lib.ThingQueryKeepInInventoryThing</queryClass>
+	</TD_Find_Lib.ThingQueryDef>
+
+	<TD_Find_Lib.ThingQueryDef>
 		<defName>Query_AssignDrugThing</defName>
 		<label>allowed by drug policy</label>
 		<queryClass>TD_Find_Lib.ThingQueryDrugPolicyThing</queryClass>
 	</TD_Find_Lib.ThingQueryDef>
-	
 
 	<TD_Find_Lib.ThingQueryDef>
 		<defName>Query_ThingQueryDevelopmentalStage</defName>
