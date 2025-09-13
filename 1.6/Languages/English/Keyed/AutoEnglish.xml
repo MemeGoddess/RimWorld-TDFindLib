@@ -143,7 +143,12 @@
 	<TD.ContainerBuildings>Containers</TD.ContainerBuildings>
 	<TD.Structures>Structures</TD.Structures>
 	<TD.AbilityLevel01>Level {0}: {1}</TD.AbilityLevel01>
-	
+
+	<TD.Seconds>Seconds</TD.Seconds>
+	<TD.Hours>Hours</TD.Hours>
+	<TD.Days>Days</TD.Days>
+	<TD.Years>Years</TD.Years>
+
 	<TD.DefLabel.RemovePaintBuilding>Remove Paint From Building</TD.DefLabel.RemovePaintBuilding>
 	<TD.DefLabel.RemovePaintFloor>Remove Paint From Floor</TD.DefLabel.RemovePaintFloor>
 	

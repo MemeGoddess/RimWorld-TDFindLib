@@ -60,6 +60,7 @@
 			<li>Query_ThingQueryDevelopmentalStage</li>
 			<li>Query_ThingQueryAge</li>
 			<li>Query_ThingQueryRelation</li>
+			<li>Query_RecordTime</li>
 		</subQueries>
 	</TD_Find_Lib.ThingQueryCategoryDef>
 
@@ -303,7 +304,12 @@
 		<label>relation</label>
 		<queryClass>TD_Find_Lib.ThingQueryRelation</queryClass>
 	</TD_Find_Lib.ThingQueryDef>
-	
+
+	<TD_Find_Lib.ThingQueryDef>
+		<defName>Query_RecordTime</defName>
+		<label>record (time)</label>
+		<queryClass>TD_Find_Lib.ThingQueryRecordTime</queryClass>
+	</TD_Find_Lib.ThingQueryDef>
 
 	<TD_Find_Lib.ThingQueryDef>
 		<defName>Query_Gender</defName>

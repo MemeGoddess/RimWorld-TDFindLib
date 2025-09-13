@@ -1652,6 +1652,71 @@ namespace TD_Find_Lib
 		}
 	}
 
+	public class ThingQueryRecordTime : ThingQueryDropDown<RecordDef>
+	{
+		IntRangeUB timeRange = new(0, 60);
+		int timeType = 3;
+
+		static string[] timeText = new string[]
+		{ "TD.Seconds", "TD.Hours", "TD.Days", "TD.Years" };//notranslate
+		public static string GetTimeText(int x) => timeText[x].Translate();
+
+
+		public ThingQueryRecordTime()
+		{
+			sel = RecordDefOf.TimeAsColonistOrColonyAnimal;
+		}
+
+		public override IEnumerable<RecordDef> AllOptions()
+		{
+			foreach( RecordDef def in base.AllOptions())
+				if( def.type == RecordType.Time )
+					yield return def;
+		}
+
+		public override void ExposeData()
+		{
+			base.ExposeData();
+			Scribe_Values.Look(ref timeRange.range, "timeRange");
+			Scribe_Values.Look(ref timeType, "timeType");
+		}
+		protected override ThingQuery Clone()
+		{
+			ThingQueryRecordTime clone = (ThingQueryRecordTime)base.Clone();
+			clone.timeRange = timeRange;
+			clone.timeType = timeType;
+			return clone;
+		}
+
+		public override bool AppliesDirectlyTo(Thing thing)
+		{
+
+			Pawn_RecordsTracker records = (thing as Pawn)?.records;
+			if (records == null) return false;
+
+			float ticks = records.GetAsInt(sel);
+			return timeType switch
+			{
+			    0 => timeRange.Includes((int)(ticks * GenTicks.SecondsPerTick)),
+			    1 => timeRange.Includes((int)(ticks / GenDate.TicksPerHour)),
+			    2 => timeRange.Includes((int)(ticks / GenDate.TicksPerDay)),
+			    3 => timeRange.Includes((int)(ticks / GenDate.TicksPerYear)),
+			    _ => false
+			};
+		}
+
+		public override bool DrawCustom(Rect fullRect)
+		{
+			if (row.ButtonText(GetTimeText(timeType)))
+			{
+				DoFloatOptions(Enumerable.Range(0, 4).Select(
+					t => new FloatMenuOptionAndRefresh(GetTimeText(t), () => timeType = t, this) as FloatMenuOption).ToList());
+			}
+
+			return TDWidgets.IntRangeUB(fullRect.RightHalfClamped(row.FinalX), id, ref timeRange);
+		}
+	}
+
 	public enum ScheduleFilterType { Current, AllScheduleIs, AnyScheduleNot}
 	[StaticConstructorOnStartup]
 	public class ThingQuerySchedule : ThingQuery
