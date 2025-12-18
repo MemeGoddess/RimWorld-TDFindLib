@@ -1,7 +1,7 @@
 name: Build and Deploy to Steam Workshop
 
 env:
-  workshopId: '3526439840'
+  workshopId: '3529443295'
   ProjectFiles: 
     'Source/TD_Find_Lib.csproj,
     ModSupport/Biotech/Biotech.csproj,
@@ -15,7 +15,6 @@ on:
     branches:
       - master
       - main
-      - feat/setup-new-pipeline
 
 jobs:
   build:
