@@ -4,11 +4,11 @@ env:
   workshopId: '3526439840'
   ProjectFiles: 
     'Source/TD_Find_Lib.csproj,
-    ModSupport\Biotech\Biotech.csproj,
-    ModSupport\CAIFOW\CAIFOW.csproj,
-    ModSupport\Ideology\Ideology.csproj,
-    ModSupport\LTOColonyGroups\LTOColonyGroups.csproj,
-    ModSupport\Royalty\Royalty.csproj'
+    ModSupport/Biotech/Biotech.csproj,
+    ModSupport/CAIFOW/CAIFOW.csproj,
+    ModSupport/Ideology/Ideology.csproj,
+    ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,
+    ModSupport/Royalty/Royalty.csproj'
 
 on:
   push:
