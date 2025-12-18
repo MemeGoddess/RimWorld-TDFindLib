@@ -16,7 +16,8 @@ on:
         - main
         - master
         paths:
-            - 'Source/**'
+        - 'Source/**'
+        - 'ModSupport/**'
 
 permissions:
   contents: write
