@@ -47,5 +47,4 @@ namespace TD_Find_Lib
 			return "TD.TDFindLibrary".Translate();
 		}
 	}
-
 }
