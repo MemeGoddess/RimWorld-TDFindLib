@@ -1,0 +1,74 @@
+name: Build and Commit to Main on PR Close
+
+env:
+  ProjectFiles: 
+    'Source/TD_Find_Lib.csproj,
+    ModSupport/Biotech/Biotech.csproj,
+    ModSupport/CAIFOW/CAIFOW.csproj,
+    ModSupport/Ideology/Ideology.csproj,
+    ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,
+    ModSupport/Royalty/Royalty.csproj'
+
+on:
+    pull_request:
+        types: [closed]
+        branches:
+        - main
+        - master
+        paths:
+            - 'Source/**'
+
+permissions:
+  contents: write
+
+jobs:
+    pr-closed-build:
+        name: Build on PR Close
+        if: ${{ github.event.pull_request.merged == true }}
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+            with:
+                fetch-depth: 0
+                path: 'mod'
+            
+          - name: Set up .NET SDK
+            uses: actions/setup-dotnet@v4
+            with:
+              dotnet-version: '8.0.x'
+
+          - name: Download Steam Workshop Dependencies
+            uses: ./mod/.github/actions/download-steam-workshop
+            with: 
+                path: 'mod'
+
+          - name: Build Mod
+            working-directory: mod
+            run: |
+                set -euo pipefail
+                FILES="${{ env.ProjectFiles }}"
+                IFS=',' read -ra FILE_ARR <<< "$FILES"
+                for FILE in "${FILE_ARR[@]}"; do
+                    FILE="$(printf '%s' "$FILE" | xargs)"  # trim whitespace
+                    if [ -n "$FILE" ]; then
+                    echo "Building: $FILE"
+                    dotnet build "$FILE" --configuration Debug
+                    fi
+                done
+
+          - name: Commit build artifacts
+            working-directory: mod
+            run: |
+                if [ -z "$(git ls-files -m -- '*.dll')" ]; then
+                    exit 0
+                fi
+
+                git config --global user.name "github-actions[bot]"
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                
+                git ls-files -m -- '*.dll' | xargs -r git add -- || true
+                COMMIT_MSG="chore: Build mod after PR #${{ github.event.pull_request.number }} merged"
+                git commit -m "$COMMIT_MSG" || echo "No changes to commit"
+                git push origin HEAD:${{ github.event.pull_request.base.ref }}
