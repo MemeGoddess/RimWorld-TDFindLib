@@ -1,13 +1,26 @@
 name: Build and Deploy to Steam Workshop
 
+env:
+  workshopId: '3526439840'
+  ProjectFiles: 
+    'Source/TD_Find_Lib.csproj,
+    ModSupport\Biotech\Biotech.csproj,
+    ModSupport\CAIFOW\CAIFOW.csproj,
+    ModSupport\Ideology\Ideology.csproj,
+    ModSupport\LTOColonyGroups\LTOColonyGroups.csproj,
+    ModSupport\Royalty\Royalty.csproj'
+
 on:
   push:
     branches:
       - master
+      - main
+      - feat/setup-new-pipeline
 
 jobs:
   build:
     name: Build
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore:') }}
     runs-on: ubuntu-latest
 
     steps:
@@ -15,6 +28,28 @@ jobs:
         uses: actions/checkout@v4
         with:
             path: 'mod'
+
+      - name: Check required secrets
+        env:
+          STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+          STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
+        run: |
+          if [ -z "$STEAM_USERNAME" ]; then
+            echo "Error: STEAM_USERNAME secret is not set"
+            exit 1
+          fi
+          if [ -z "$STEAM_CONFIG_VDF" ]; then
+            echo "Error: STEAM_CONFIG_VDF secret is not set"
+            exit 1
+          fi
+          echo "All required secrets are present"
+
+      - name: Sanitize commit message
+        id: sanitize
+        run: |
+          COMMIT_MSG=$(printf '%s' "${{ github.event.head_commit.message }}")
+          SANITIZED=$(printf '%s' "$COMMIT_MSG" | sed 's/\"/'"'"'/g')
+          echo "SANITIZED_COMMIT_MSG=$SANITIZED" >> $GITHUB_ENV
 
       - name: Set up .NET SDK
         uses: actions/setup-dotnet@v4
@@ -26,17 +61,19 @@ jobs:
         with: 
           path: 'mod'
 
-      - name: Build with dotnet build
+      - name: Build Mod
         working-directory: mod
         run: |
-          dotnet build "Source/TD_Find_Lib.csproj" --configuration Release
-          dotnet build "ModSupport\Biotech\Biotech.csproj" --configuration Release
-          dotnet build "ModSupport\CAIFOW\CAIFOW.csproj" --configuration Release
-          dotnet build "ModSupport\Ideology\Ideology.csproj" --configuration Release
-          dotnet build "ModSupport\LTOColonyGroups\LTOColonyGroups.csproj" --configuration Release
-          # dotnet build "ModSupport\RealFOW\RealFOW.csproj" --configuration Release # This is disabled because it's .NETFramework 4.8.1
-          dotnet build "ModSupport\Royalty\Royalty.csproj" --configuration Release
-          dotnet build "ModSupport\Odyssey\Odyssey.csproj" --configuration Release
+          set -euo pipefail
+          FILES="${{ env.ProjectFiles }}"
+          IFS=',' read -ra FILE_ARR <<< "$FILES"
+          for FILE in "${FILE_ARR[@]}"; do
+            FILE="$(printf '%s' "$FILE" | xargs)"  # trim whitespace
+            if [ -n "$FILE" ]; then
+              echo "Building: $FILE"
+              dotnet build "$FILE" --configuration Release
+            fi
+          done
 
       - name: Cleanup
         working-directory: mod
@@ -51,13 +88,74 @@ jobs:
             sudo rm -rf Workshop
             find . -type d -name "obj" -exec rm -rf {} +
 
-      - name: steam-workshop-upload
+      - name: Upload to Steam Workshop
         uses: m00nl1ght-dev/steam-workshop-deploy@v4
         continue-on-error: true
         with: 
           appId: 294100 # Game's Steam App ID
-          publishedFileId: 3529443295 # Your mod's Steam Workshop ID
+          publishedFileId: ${{ env.workshopId }} # Your mod's Steam Workshop ID
           path: 'mod' # Path to your mod's folder from repository root
           username: ${{ secrets.STEAM_USERNAME }}
           configVdf:  ${{ secrets.STEAM_CONFIG_VDF }}
-          changeNote: ${{ github.event.head_commit.message }}
+          changeNote: "${{ env.SANITIZED_COMMIT_MSG }}"
+
+      - name: Verify Upload
+        if: ${{ env.workshopId != '3526439840' }}
+        run: |
+          time=$(curl -X POST "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"   -H "Content-Type: application/x-www-form-urlencoded"   -d "itemcount=1"   -d "publishedfileids[0]=${{ env.workshopId }}" 2>/dev/null | jq -r '.response.publishedfiledetails[].time_updated')
+          now=$(date +%s)
+          if ! printf '%s' "$time" | grep -Eq '^[0-9]+$'; then
+            echo "Unable to parse time: $time"
+          else
+            delta=$(( now - time ))
+            if [ "$delta" -lt 0 ]; then
+              delta=$(( -delta ))
+              suffix="from now"
+            else
+              suffix="ago"
+            fi
+
+            days=$(( delta / 86400 ))
+            hours=$(( (delta % 86400) / 3600 ))
+            minutes=$(( (delta % 3600) / 60 ))
+            seconds=$(( delta % 60 ))
+
+            human_parts=()
+            [ "$days" -gt 0 ] && human_parts+=("${days}d")
+            [ "$hours" -gt 0 ] && human_parts+=("${hours}h")
+            [ "$minutes" -gt 0 ] && human_parts+=("${minutes}m")
+            if [ "${#human_parts[@]}" -eq 0 ]; then
+              human_parts+=("${seconds}s")
+            fi
+
+            human="$(printf '%s ' "${human_parts[@]}" | sed 's/ $//')"
+            GREEN=$'\033[0;32m'
+            RED=$'\033[0;31m'
+            NC=$'\033[0m'
+            exit=-1
+            if [ "$time" -ge $(( now - 3600 )) ]; then
+              status_icon="${GREEN}✓${NC}"
+              exit=0
+            else
+              status_icon="${RED}✗${NC}"
+              exit=1
+            fi
+            human="$status_icon $human"         
+            echo "$human $suffix"
+            exit $exit
+          fi
+
+
+          # Fallback simple check
+          if [ "$time" -ge $(($now-3600)) ]; then
+            echo "Upload verified successfully."
+            exit 0
+          else
+            echo "Upload verification failed."
+            exit 1
+          fi
+
+          # Failed to check
+          echo "Checks failed."
+          exit 1
+
