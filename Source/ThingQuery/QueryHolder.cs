@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace TD_Find_Lib
 {
-	public interface IQueryHolder
+  public interface IQueryHolder
 	{
 		public HeldQueries Children { get; }
 		public IQueryHolder Parent { get; }
@@ -496,6 +496,8 @@ namespace TD_Find_Lib
 		{
 			List<FloatMenuOption> options = new();
 
+			if(Settings.FloatSubMenuInstalled)
+				options.Add((FloatMenuOption)Activator.CreateInstance(AccessTools.TypeByName("FloatSubMenus.FloatMenuSearch"), args: true));
 			foreach (ThingQuerySelectableDef def in defs.Where(d => d.Visible()))
 				if(FloatFor(def) is FloatMenuOption opt)
 					options.Add(opt);
@@ -523,43 +525,19 @@ namespace TD_Find_Lib
 				case ThingQueryCategoryDef cDef:
 				{
 					var count = cDef.subQueries.Count(d => d.Visible());
-					switch (count)
+					return count switch
 					{
-						case 0:
-							return null;
-						case 1:
-							return FloatFor(cDef.subQueries.First());
-						default:
-							if (!Settings.FloatSubMenuInstalled)
-								return new FloatMenuOption("+ " + cDef.LabelCap, () => DoFloatAllQueries(cDef.subQueries));
-							return (FloatMenuOption)CreateWithOptionalDefaults(AccessTools.TypeByName("FloatSubMenus.FloatSubMenu"),
-								cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).ToList());
-					}
+						0 => null,
+						1 => FloatFor(cDef.subQueries.First()),
+						_ => Settings.FloatSubMenuInstalled
+							? FloatSubMenu.NewMenu(cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).ToList())
+							: new FloatMenuOption("+ " + cDef.LabelCap, () => DoFloatAllQueries(cDef.subQueries))
+					};
 				}
 
 				default:
 					return null; //don't do this though
 			}
-		}
-
-		public static object CreateWithOptionalDefaults(Type type, params object[] suppliedArgs)
-		{
-			var ctors = type.GetConstructors();
-			var ctor = ctors.First(x => x.GetParameters()[2].ParameterType == typeof(MenuOptionPriority));
-			var parameters = ctor.GetParameters();
-			var args = new object[parameters.Length];
-
-			for (int i = 0; i < parameters.Length; i++)
-			{
-				if (i < suppliedArgs.Length)
-					args[i] = suppliedArgs[i];
-				else if (parameters[i].HasDefaultValue)
-					args[i] = parameters[i].DefaultValue;
-				else
-					throw new ArgumentException($"Missing parameter {parameters[i].Name}");
-			}
-
-			return ctor.Invoke(args);
 		}
 
 
