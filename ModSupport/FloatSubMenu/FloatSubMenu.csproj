@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <OutputType>Library</OutputType>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AssemblyName>TDFindLib_$(MSBuildProjectName)</AssemblyName>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <RootNamespace>TD$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <OutputPath>..\..\1.6\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>none</DebugType>
+        <OutputPath>..\..\1.6\ModSupport\$(MSBuildProjectName)\Assemblies\</OutputPath>
+        <OutputPathFiles>$(OutputPath)..\</OutputPathFiles>
+        <DefineConstants></DefineConstants>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4518" />
+        <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Source\TD_Find_Lib.csproj">
+          <Private>False</Private>
+        </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="FloatSubMenu">
+            <HintPath>..\..\Workshop\steamapps\workshop\content\294100\2864015430\1.6\Assemblies\FloatSubMenu.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+</Project>

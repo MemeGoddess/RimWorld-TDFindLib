@@ -22,6 +22,7 @@
 		<li>DerekBickley.LTOColonyGroupsFinal</li>
 		<li>Nowano.RimWorldRealFoW</li>
 		<li>erdelf.HumanoidAlienRaces</li>
+		<li>kathanon.FloatSubMenu</li>
 	</loadAfter>
 	<modIconPath IgnoreIfNoMatchingField="True">TDFindLibIcon</modIconPath>
 </ModMetaData>

@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ideology", "ModSupport\Ideo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biotech", "ModSupport\Biotech\Biotech.csproj", "{5A9A7037-630D-4C09-AFE3-9BA55B5035F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Odyssey", "ModSupport\Odyssey\Odyssey.csproj", "{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Odyssey", "ModSupport\Odyssey\Odyssey.csproj", "{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloatSubMenu", "ModSupport\FloatSubMenu\FloatSubMenu.csproj", "{7AB4AD29-AD7F-4F47-AFD1-550E25356C05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DFA1D0C-2962-4E3C-A3B5-B5D03F59BB47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AB4AD29-AD7F-4F47-AFD1-550E25356C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB4AD29-AD7F-4F47-AFD1-550E25356C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AB4AD29-AD7F-4F47-AFD1-550E25356C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AB4AD29-AD7F-4F47-AFD1-550E25356C05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

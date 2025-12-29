@@ -88,6 +88,16 @@ namespace TD_Find_Lib
 		public void Receive(List<SearchGroup> search);
 	}
 
+	public interface ISearchGroupReceiverFloat : ISearchGroupReceiver
+	{
+		public List<FloatMenuOption> ReceiveFloat(SearchGroup search);
+	}
+
+	public interface ISearchReceiverFloat : ISearchReceiver
+	{
+		public List<FloatMenuOption> ReceiveFloat(QuerySearch search);
+
+	}
 
 	[StaticConstructorOnStartup]
 	public class ClipboardTransfer : ISearchReceiver, ISearchProvider, ISearchGroupReceiver, ISearchLibraryReceiver

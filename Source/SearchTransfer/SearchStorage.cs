@@ -53,29 +53,45 @@ namespace TD_Find_Lib
 				{
 					case ISearchProvider.Method.None:
 						continue;
+
 					case ISearchProvider.Method.Single:
 						importOptions.Add(new FloatMenuOption(provider.ProvideName, () =>
 						{
 							handler(provider.ProvideSingle().Clone(cloneArgs));
 						}));
 						continue;
+
 					case ISearchProvider.Method.Group:
 						importOptions.Add(new FloatMenuOption(provider.ProvideName, () =>
 						{
 							ImportFromListSubmenu(provider.ProvideGroup(), handler, cloneArgs);
 						}));
 						continue;
+
 					case ISearchProvider.Method.Library:
-						importOptions.Add(new FloatMenuOption(provider.ProvideName, () =>
+
+						if(Settings.FloatSubMenuInstalled)
 						{
-							List<FloatMenuOption> submenuOptions = new();
+							var library = provider.ProvideLibrary();
+							importOptions.Add(FloatSubMenu.NewMenu(provider.ProvideName, library
+								.Where(group => group.Any())
+								.Select(group =>
+								{
+									return FloatSubMenu.NewMenu(group.name,
+										group.Select(x => new FloatMenuOption(x.name, () => handler(x.Clone(cloneArgs)))).ToList());
+								}).ToList()));
+						}
+						else
+							importOptions.Add(new FloatMenuOption(provider.ProvideName, () =>
+							{
+								List<FloatMenuOption> submenuOptions = new();
 
-							foreach (SearchGroup group in provider.ProvideLibrary())
-								if (group.Any())
-									submenuOptions.Add(new FloatMenuOption("+ " + group.name, () => ImportFromListSubmenu(group, handler, cloneArgs)));
+								foreach (SearchGroup group in provider.ProvideLibrary())
+									if (group.Any())
+										submenuOptions.Add(new FloatMenuOption("+ " + group.name, () => ImportFromListSubmenu(group, handler, cloneArgs)));
 
-							Find.WindowStack.Add(new FloatMenu(submenuOptions));
-						}));
+								Find.WindowStack.Add(new FloatMenu(submenuOptions));
+							}));
 						continue;
 						//TODO no way we want 3 nested sublists right?
 				}
@@ -110,7 +126,9 @@ namespace TD_Find_Lib
 				if (SourceMatch(receiver.Source, source)) continue;
 				if (!receiver.CanReceive()) continue;
 
-				exportOptions.Add(new FloatMenuOption(receiver.ReceiveName, () => receiver.Receive(search.Clone(receiver.CloneArgs))));
+				exportOptions.Add(Settings.FloatSubMenuInstalled && receiver is ISearchReceiverFloat receiverFloat
+					? FloatSubMenu.NewMenu(receiver.ReceiveName, receiverFloat.ReceiveFloat(search.Clone(receiver.CloneArgs)))
+					: new FloatMenuOption(receiver.ReceiveName, () => receiver.Receive(search.Clone(receiver.CloneArgs))));
 			}
 
 			return exportOptions;
@@ -174,20 +192,34 @@ namespace TD_Find_Lib
 						}));
 						continue;
 					case ISearchProvider.Method.Library:
-						importOptions.Add(new FloatMenuOption(provider.ProvideName, () =>
+						if (Settings.FloatSubMenuInstalled)
 						{
-							List<FloatMenuOption> submenuOptions = new();
-
-							foreach (SearchGroup group in provider.ProvideLibrary())
-							{
-								submenuOptions.Add(new FloatMenuOption(group.name, () =>
+							var library = provider.ProvideLibrary();
+							importOptions.Add(FloatSubMenu.NewMenu(provider.ProvideName, library
+								.Where(group => group.Any())
+								.Select(group =>
 								{
-									handler(group.Clone(cloneArgs));
-								}));
-							}
+									return new FloatMenuOption(group.name, () =>
+									{
+										handler(group.Clone(cloneArgs));
+									});
+								}).ToList()));
+						}
+						else
+							importOptions.Add(new FloatMenuOption(provider.ProvideName, () =>
+							{
+								List<FloatMenuOption> submenuOptions = new();
 
-							Find.WindowStack.Add(new FloatMenu(submenuOptions));
-						}));
+								foreach (SearchGroup group in provider.ProvideLibrary())
+								{
+									submenuOptions.Add(new FloatMenuOption(group.name, () =>
+									{
+										handler(group.Clone(cloneArgs));
+									}));
+								}
+
+								Find.WindowStack.Add(new FloatMenu(submenuOptions));
+							}));
 						continue;
 						//TODO no way we want 3 nested sublists right?
 				}
@@ -215,7 +247,10 @@ namespace TD_Find_Lib
 				if (SourceMatch(receiver.Source, source)) continue;
 				if (!receiver.CanReceive()) continue;
 
-				exportOptions.Add(new FloatMenuOption(receiver.ReceiveName, () => receiver.Receive(group.Clone(receiver.CloneArgs))));
+
+				exportOptions.Add(Settings.FloatSubMenuInstalled && receiver is ISearchGroupReceiverFloat receiverFloat
+					? FloatSubMenu.NewMenu(receiver.ReceiveName, receiverFloat.ReceiveFloat(group.Clone(receiver.CloneArgs)))
+					: new FloatMenuOption(receiver.ReceiveName, () => receiver.Receive(group.Clone(receiver.CloneArgs))));
 			}
 
 			return exportOptions;

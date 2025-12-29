@@ -8,7 +8,7 @@ using RimWorld;
 
 namespace TD_Find_Lib
 {
-	public class Settings : ModSettings, ISearchReceiver, ISearchGroupReceiver, ISearchLibraryReceiver, ISearchProvider, ISearchStorageParent
+	public class Settings : ModSettings, ISearchReceiver, ISearchGroupReceiver, ISearchLibraryReceiver, ISearchProvider, ISearchStorageParent, ISearchGroupReceiverFloat, ISearchReceiverFloat
 	{
 		private bool onlyAvailable = true;
 		public bool OnlyAvailable => onlyAvailable != Event.current.shift && Current.Game != null;
@@ -26,6 +26,11 @@ namespace TD_Find_Lib
 			SanityCheck();
 			SearchTransfer.Register(this);
 			FloatSubMenuInstalled = ModsConfig.IsActive("kathanon.FloatSubMenu");
+			if (FloatSubMenuInstalled &&
+			    !AppDomain.CurrentDomain.GetAssemblies().Any(x => x.FullName.StartsWith("TDFindLib_FloatSubMenu")))
+			{
+				Verse.Log.Error("Float Sub-Menu is installed, but TD Compatibility for it isn't.");
+			}
 		}
 
 		//ISearchStorageParent stuff
@@ -146,6 +151,13 @@ namespace TD_Find_Lib
 			//Save to groups
 
 			//TODO: generalize this in SearchStorage if we think many Receivers are going to want to specify which group to receive?
+			var submenuOptions = ReceiveFloat(search);
+
+			Find.WindowStack.Add(new FloatMenu(submenuOptions));
+		}
+
+		public List<FloatMenuOption> ReceiveFloat(QuerySearch search)
+		{
 			List<FloatMenuOption> submenuOptions = new();
 
 			foreach (SearchGroup group in searchGroups)
@@ -156,41 +168,43 @@ namespace TD_Find_Lib
 			submenuOptions.Add(new FloatMenuOption("TD.AddNewGroup".Translate(), () =>
 			{
 				Find.WindowStack.Add(new Dialog_Name("TD.NewGroup".Translate(), n =>
-				{
-					var group = new SearchGroup(n, this);
-					Add(group);
+					{
+						var group = new SearchGroup(n, this);
+						Add(group);
 
-					SaveToGroup(search, group);
-				},
-				"TD.NameForNewGroup".Translate(),
-				n => Children.Any(f => f.name == n)));
+						SaveToGroup(search, group);
+					},
+					"TD.NameForNewGroup".Translate(),
+					n => Children.Any(f => f.name == n)));
 			}));
 
-			Find.WindowStack.Add(new FloatMenu(submenuOptions));
+			return submenuOptions;
 		}
 
 		public void Receive(SearchGroup newGroup)
 		{
-			List<FloatMenuOption> submenuOptions = new();
+			var submenuOptions = ReceiveFloat(newGroup);
 
-			foreach (SearchGroup group in searchGroups)
-			{
-				submenuOptions.Add(new FloatMenuOption(group.name, () => group.AddRange(newGroup)));
-			}
+			Find.WindowStack.Add(new FloatMenu(submenuOptions));
+		}
+
+		public List<FloatMenuOption> ReceiveFloat(SearchGroup newGroup)
+		{
+			var submenuOptions = searchGroups.Select(group => new FloatMenuOption(group.name, () => group.AddRange(newGroup))).ToList();
 
 			submenuOptions.Add(new FloatMenuOption("TD.AddNewGroup".Translate(), () =>
 			{
 				Find.WindowStack.Add(new Dialog_Name("TD.NewGroup".Translate(), n =>
-				{
-					newGroup.name = n;
+					{
+						newGroup.name = n;
 
-					Add(newGroup);
-				},
-				"TD.NameForNewGroup".Translate(),
-				n => Children.Any(f => f.name == n)));
+						Add(newGroup);
+					},
+					"TD.NameForNewGroup".Translate(),
+					n => Children.Any(f => f.name == n)));
 			}));
 
-			Find.WindowStack.Add(new FloatMenu(submenuOptions));
+			return submenuOptions;
 		}
 
 		public void Receive(List<SearchGroup> library)

@@ -496,8 +496,7 @@ namespace TD_Find_Lib
 		{
 			List<FloatMenuOption> options = new();
 
-			if(Settings.FloatSubMenuInstalled)
-				options.Add((FloatMenuOption)Activator.CreateInstance(AccessTools.TypeByName("FloatSubMenus.FloatMenuSearch"), args: true));
+			options.AddSearchIfInstalled();
 			foreach (ThingQuerySelectableDef def in defs.Where(d => d.Visible()))
 				if(FloatFor(def) is FloatMenuOption opt)
 					options.Add(opt);
