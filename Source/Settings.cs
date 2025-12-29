@@ -17,12 +17,15 @@ namespace TD_Find_Lib
 
 		public static string defaultGroupName = "TD.SavedSearches".Translate();
 
+		public static bool FloatSubMenuInstalled = false;
+
 		//Don't touch my searches
 		internal List<SearchGroup> searchGroups;
 		public Settings()
 		{
 			SanityCheck();
 			SearchTransfer.Register(this);
+			FloatSubMenuInstalled = ModsConfig.IsActive("kathanon.FloatSubMenu");
 		}
 
 		//ISearchStorageParent stuff

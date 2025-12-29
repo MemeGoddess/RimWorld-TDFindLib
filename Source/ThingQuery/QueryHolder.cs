@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
@@ -504,37 +505,61 @@ namespace TD_Find_Lib
 
 		public FloatMenuOption FloatFor(ThingQuerySelectableDef def)
 		{
-			if (def is ThingQueryDef fDef)
-				return new FloatMenuOption(
-					fDef.LabelCap,
-					() => Add(ThingQueryMaker.MakeQuery(fDef), focus: true)
-				);
-			else if (def is ThingQueryPreselectDef pDef)
-				return new FloatMenuOption(
-					pDef.LabelCap,
-					() => Add(ThingQueryMaker.MakeQuery(pDef), focus: true)
-				);
-			else if (def is ThingQueryCategoryDef cDef)
+			switch (def)
 			{
-				int count = cDef.subQueries.Count(d => d.Visible());
-				if (count == 0)
-				{
-					return null; // whoops my mistake I'll let myself out (this gonna be mod category with no mods)
-				}
-				if (count == 1)
-				{
-					return FloatFor(cDef.subQueries.First());
-				}
-				else
-				{
+				case ThingQueryDef fDef:
+
 					return new FloatMenuOption(
-						"+ " + cDef.LabelCap,
-						() => DoFloatAllQueries(cDef.subQueries)
+						fDef.LabelCap,
+						() => Add(ThingQueryMaker.MakeQuery(fDef), focus: true)
 					);
+
+				case ThingQueryPreselectDef pDef:
+					return new FloatMenuOption(
+						pDef.LabelCap,
+						() => Add(ThingQueryMaker.MakeQuery(pDef), focus: true)
+					);
+
+				case ThingQueryCategoryDef cDef:
+				{
+					var count = cDef.subQueries.Count(d => d.Visible());
+					switch (count)
+					{
+						case 0:
+							return null;
+						case 1:
+							return FloatFor(cDef.subQueries.First());
+						default:
+							if (!Settings.FloatSubMenuInstalled)
+								return new FloatMenuOption("+ " + cDef.LabelCap, () => DoFloatAllQueries(cDef.subQueries));
+							return (FloatMenuOption)CreateWithOptionalDefaults(AccessTools.TypeByName("FloatSubMenus.FloatSubMenu"),
+								cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).ToList());
+					}
 				}
+
+				default:
+					return null; //don't do this though
+			}
+		}
+
+		public static object CreateWithOptionalDefaults(Type type, params object[] suppliedArgs)
+		{
+			var ctors = type.GetConstructors();
+			var ctor = ctors.First(x => x.GetParameters()[2].ParameterType == typeof(MenuOptionPriority));
+			var parameters = ctor.GetParameters();
+			var args = new object[parameters.Length];
+
+			for (int i = 0; i < parameters.Length; i++)
+			{
+				if (i < suppliedArgs.Length)
+					args[i] = suppliedArgs[i];
+				else if (parameters[i].HasDefaultValue)
+					args[i] = parameters[i].DefaultValue;
+				else
+					throw new ArgumentException($"Missing parameter {parameters[i].Name}");
 			}
 
-			return null; //don't do this though
+			return ctor.Invoke(args);
 		}
 
 
