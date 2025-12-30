@@ -25,7 +25,7 @@ namespace TD_Find_Lib
 		{
 			SanityCheck();
 			SearchTransfer.Register(this);
-			FloatSubMenuInstalled = ModsConfig.IsActive("kathanon.FloatSubMenu");
+			FloatSubMenuInstalled = ModsConfig.IsActive("kathanon.FloatSubMenu") || ModsConfig.IsActive("kathanon.FloatSubMenu_steam");
 			if (FloatSubMenuInstalled &&
 			    !AppDomain.CurrentDomain.GetAssemblies().Any(x => x.FullName.StartsWith("TDFindLib_FloatSubMenu")))
 			{

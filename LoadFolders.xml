@@ -33,6 +33,7 @@
 		<li IfModActive="DerekBickley.LTOColonyGroupsFinal">1.6/ModSupport/LTOColonyGroups</li>
 		<li IfModActive="Krkr.rule56">1.6/ModSupport/CAIFOW</li>
 		<li IfModActive="kathanon.FloatSubMenu">1.6/ModSupport/FloatSubMenu</li>
+		<li IfModActive="kathanon.FloatSubMenu_steam">1.6/ModSupport/FloatSubMenu</li>
 		<!--Expansions don't have another dll to depend on so they can be loaded without conditional -->
 		<li>1.6/ModSupport/Royalty</li>
 		<li>1.6/ModSupport/Ideology</li>
