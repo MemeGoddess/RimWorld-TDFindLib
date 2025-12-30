@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
 
 namespace TD_Find_Lib
 {
-	public interface IQueryHolder
+  public interface IQueryHolder
 	{
 		public HeldQueries Children { get; }
 		public IQueryHolder Parent { get; }
@@ -495,6 +496,7 @@ namespace TD_Find_Lib
 		{
 			List<FloatMenuOption> options = new();
 
+			options.AddSearchIfInstalled();
 			foreach (ThingQuerySelectableDef def in defs.Where(d => d.Visible()))
 				if(FloatFor(def) is FloatMenuOption opt)
 					options.Add(opt);
@@ -504,37 +506,37 @@ namespace TD_Find_Lib
 
 		public FloatMenuOption FloatFor(ThingQuerySelectableDef def)
 		{
-			if (def is ThingQueryDef fDef)
-				return new FloatMenuOption(
-					fDef.LabelCap,
-					() => Add(ThingQueryMaker.MakeQuery(fDef), focus: true)
-				);
-			else if (def is ThingQueryPreselectDef pDef)
-				return new FloatMenuOption(
-					pDef.LabelCap,
-					() => Add(ThingQueryMaker.MakeQuery(pDef), focus: true)
-				);
-			else if (def is ThingQueryCategoryDef cDef)
+			switch (def)
 			{
-				int count = cDef.subQueries.Count(d => d.Visible());
-				if (count == 0)
-				{
-					return null; // whoops my mistake I'll let myself out (this gonna be mod category with no mods)
-				}
-				if (count == 1)
-				{
-					return FloatFor(cDef.subQueries.First());
-				}
-				else
-				{
-					return new FloatMenuOption(
-						"+ " + cDef.LabelCap,
-						() => DoFloatAllQueries(cDef.subQueries)
-					);
-				}
-			}
+				case ThingQueryDef fDef:
 
-			return null; //don't do this though
+					return new FloatMenuOption(
+						fDef.LabelCap,
+						() => Add(ThingQueryMaker.MakeQuery(fDef), focus: true)
+					);
+
+				case ThingQueryPreselectDef pDef:
+					return new FloatMenuOption(
+						pDef.LabelCap,
+						() => Add(ThingQueryMaker.MakeQuery(pDef), focus: true)
+					);
+
+				case ThingQueryCategoryDef cDef:
+				{
+					var count = cDef.subQueries.Count(d => d.Visible());
+					return count switch
+					{
+						0 => null,
+						1 => FloatFor(cDef.subQueries.First()),
+						_ => Settings.FloatSubMenuInstalled
+							? FloatSubMenu.NewMenu(cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).ToList())
+							: new FloatMenuOption("+ " + cDef.LabelCap, () => DoFloatAllQueries(cDef.subQueries))
+					};
+				}
+
+				default:
+					return null; //don't do this though
+			}
 		}
 
 

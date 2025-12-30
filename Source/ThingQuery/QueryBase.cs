@@ -359,6 +359,9 @@ namespace TD_Find_Lib
 		{
 			floatOptions.Clear();
 
+			if(values.Count() >= 15)
+				floatOptions.AddSearchIfInstalled();
+
 			foreach (T newValue in values)
 				if (filter == null || filter(newValue))
 					floatOptions.Add(new FloatMenuOptionAndRefresh(nameFor(newValue), () => setAction(newValue), this));
@@ -873,10 +876,9 @@ namespace TD_Find_Lib
 				floatOptions.Add(FloatMenuFor(o));
 		}
 
-		private void DoChangeDropdown(bool forceAllOptions = false)
+		private List<FloatMenuOption> GetAllOptions(bool forceAllOptions = false)
 		{
 			List<FloatMenuOption> selOptions = new();
-
 			if (NullOption() is string nullOption)
 				selOptions.Add(new FloatMenuOptionAndRefresh(nullOption, () => sel = default, this, Color.red)); //can't null because T isn't bound as reftype
 
@@ -885,9 +887,23 @@ namespace TD_Find_Lib
 			foreach (int ex in ExtraOptions())
 				selOptions.Add(new FloatMenuOptionAndRefresh(NameForExtra(ex), () => extraOption = ex, this, Color.yellow));
 
+			return selOptions;
+		}
+
+		private void DoChangeDropdown(bool forceAllOptions = false)
+		{
+			List<FloatMenuOption> selOptions = new();
+
+			selOptions.AddSearchIfInstalled();
+
+			selOptions.AddRange(GetAllOptions(forceAllOptions));
+
 			if (!forceAllOptions && LimitToAvailableOptions)
 			{
-				selOptions.Add(new FloatMenuOptionAndRefresh(">> "+ ("TD.DropwdownAllOptions".Translate()), () => DoChangeDropdown(true), this, Color.green));
+				selOptions.Add(Settings.FloatSubMenuInstalled
+					? FloatSubMenu.NewRefreshMenu("TD.DropwdownAllOptions".Translate(), GetAllOptions(true), this, Color.green)
+					: new FloatMenuOptionAndRefresh(">> " + ("TD.DropwdownAllOptions".Translate()),
+						() => DoChangeDropdown(true), this, Color.green));
 			}
 
 			DoFloatOptions(selOptions);
@@ -1057,13 +1073,19 @@ namespace TD_Find_Lib
 			};
 
 			if (IconTexForCat(cat) is Texture2D tex)
-				return new FloatMenuOption(label, action, tex == BaseContent.BadTex ? BaseContent.ClearTex : tex, IconColorForCat(cat));
+				return Settings.FloatSubMenuInstalled
+					? FloatSubMenu.NewRefreshMenu(label, FloatSubmenuOptionsFor(cat, options).ToList(), this, tex, IconColorForCat(cat)) 
+					: new FloatMenuOption(label, action, tex == BaseContent.BadTex ? BaseContent.ClearTex : tex, IconColorForCat(cat));
 
 			if (IconDefForCat(cat) is ThingDef def)
-				return new FloatMenuOption(label, action, def)
+				return Settings.FloatSubMenuInstalled
+					? FloatSubMenu.NewRefreshMenu(label, FloatSubmenuOptionsFor(cat, options).ToList(), this, def, IconColorForCat(cat))
+					: new FloatMenuOption(label, action, def)
 				{ iconColor = IconColorForCat(cat) }; // base doesn't take iconColor O_o
 
-			return new FloatMenuOption(label, action);
+			return Settings.FloatSubMenuInstalled
+				? FloatSubMenu.NewMenu(label, FloatSubmenuOptionsFor(cat, options).ToList())
+				: new FloatMenuOption(label, action);
 		}
 
 		protected virtual IEnumerable<FloatMenuOption> FloatSubmenuOptionsFor(C cat, List<T> options)

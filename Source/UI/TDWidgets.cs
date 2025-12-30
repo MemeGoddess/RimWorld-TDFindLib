@@ -80,9 +80,9 @@ namespace TD_Find_Lib
 			if (rangeUB.range.max == rangeUB.absRange.max && rangeUB.range.min == rangeUB.absRange.min)
 				labelKey = "TD.AnyValue";
 			else if (rangeUB.range.min == rangeUB.absRange.min)
-				labelKey = $"≤ {(writer != null ? writer(rangeUB.range.max) : rangeUB.range.max)}";
+				labelKey = $"≤ {(writer != null ? writer(rangeUB.range.max) : rangeUB.range.max.ToString())}";
 			else if (rangeUB.range.max == rangeUB.absRange.max)
-				labelKey = $"≥ {(writer != null ? writer(rangeUB.range.min) : rangeUB.range.min)}";
+				labelKey = $"≥ {(writer != null ? writer(rangeUB.range.min) : rangeUB.range.min.ToString())}";
 			else if(writer!= null)
 				labelKey = writer(rangeUB.range.min) + " - " + writer(rangeUB.range.max);
 
