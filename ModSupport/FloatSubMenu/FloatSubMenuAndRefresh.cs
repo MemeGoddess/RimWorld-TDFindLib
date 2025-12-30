@@ -12,8 +12,8 @@ namespace TDFloatSubMenu
 {
     public class FloatSubMenuAndRefresh : FloatSubMenus.FloatSubMenu
     {
-	    ThingQuery owner;
-	    Color color = Color.white;
+	    private readonly ThingQuery owner;
+	    private readonly Color color = Color.white;
 	    public FloatSubMenuAndRefresh(string label, List<FloatMenuOption> options, ThingQuery query, Color? color = null)
 		    : base(label, options)
 	    {
