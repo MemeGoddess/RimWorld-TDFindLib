@@ -18,4 +18,4 @@ jobs:
           
           # ex: 'Source/RimMod.csproj, ModCompat/X/X.csproj'
           # optional, will skip building if not provided
-          ProjectFiles: 'Source/TD_Find_Lib.csproj,ModSupport/Biotech/Biotech.csproj,ModSupport/CAIFOW/CAIFOW.csproj,ModSupport/Ideology/Ideology.csproj,ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,ModSupport/Royalty/Royalty.csproj'
+          ProjectFiles: 'Source/TD_Find_Lib.csproj,ModSupport/Biotech/Biotech.csproj,ModSupport/CAIFOW/CAIFOW.csproj,ModSupport/Ideology/Ideology.csproj,ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,ModSupport/Royalty/Royalty.csproj,ModSupport/FloatSubMenu/FloatSubMenu.csproj'
