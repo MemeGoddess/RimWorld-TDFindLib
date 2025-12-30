@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 using RimWorld;
 
 namespace TD_Find_Lib
 {
-	public class Settings : ModSettings, ISearchReceiver, ISearchGroupReceiver, ISearchLibraryReceiver, ISearchProvider, ISearchStorageParent, ISearchGroupReceiverFloat, ISearchReceiverFloat
+	public class Settings : ModSettings, ISearchReceiverFloat, ISearchGroupReceiverFloat, ISearchLibraryReceiver, ISearchProvider, ISearchStorageParent
 	{
 		private bool onlyAvailable = true;
 		public bool OnlyAvailable => onlyAvailable != Event.current.shift && Current.Game != null;
