@@ -17,4 +17,4 @@ jobs:
   pr-closed-build:
     uses: MemeGoddess/RimWorld-Deployment-Pipeline/.github/workflows/pr-closed.yml@beta
     with:
-      ProjectFiles: 'Source/TD_Find_Lib.csproj,ModSupport/Biotech/Biotech.csproj,ModSupport/CAIFOW/CAIFOW.csproj,ModSupport/Ideology/Ideology.csproj,ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,ModSupport/Royalty/Royalty.csproj'
+      ProjectFiles: 'Source/TD_Find_Lib.csproj,ModSupport/Biotech/Biotech.csproj,ModSupport/CAIFOW/CAIFOW.csproj,ModSupport/Ideology/Ideology.csproj,ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,ModSupport/Royalty/Royalty.csproj,ModSupport/FloatSubMenu/FloatSubMenu.csproj'
