@@ -280,6 +280,26 @@ namespace TD_Find_Lib
 		//	Find.CurrentMap.designationManager.AllDesignations.Select(d => d.def);
 	}
 
+	public class ThingQueryCanDesignate : ThingQueryDropDown<Designator>
+	{
+		public override bool AppliesDirectlyTo(Thing thing)
+		{
+			try
+			{
+				return sel?.CanDesignateThing(thing) == true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		public override string NullOption() => "None".Translate();
+		public override IEnumerable<Designator> AllOptions() => Find.ReverseDesignatorDatabase.AllDesignators;
+		public override string NameFor(Designator o) => o?.Label;
+		public override bool Ordered => true;
+	}
+
 	public class ThingQueryFreshness : ThingQueryDropDown<RotStage>
 	{
 		public override bool AppliesDirectlyTo(Thing thing)
