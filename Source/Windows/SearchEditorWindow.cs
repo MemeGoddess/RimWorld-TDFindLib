@@ -475,7 +475,7 @@ namespace TD_Find_Lib
 	public static class SearchListNormalTypes
 	{
 		public static readonly SearchListType[] normalTypes =
-			{ SearchListType.Selectable, SearchListType.Everyone, SearchListType.Items, SearchListType.Buildings, SearchListType.Plants,
+			{ SearchListType.Selectable, SearchListType.All, SearchListType.Everyone, SearchListType.Items, SearchListType.Buildings, SearchListType.Plants,
 			SearchListType.Natural, SearchListType.Junk, SearchListType.Inventory};
 	}
 }
