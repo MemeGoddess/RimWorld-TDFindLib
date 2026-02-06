@@ -635,6 +635,13 @@
 		<queryClass>TD_Find_Lib.ThingQueryDesignation</queryClass>
 		<topLevelSelectable>true</topLevelSelectable>
 	</TD_Find_Lib.ThingQueryDef>
+
+	<TD_Find_Lib.ThingQueryDef>
+		<defName>Query_CanDesignate</defName>
+		<label>can designate</label>
+		<queryClass>TD_Find_Lib.ThingQueryCanDesignate</queryClass>
+		<topLevelSelectable>true</topLevelSelectable>
+	</TD_Find_Lib.ThingQueryDef>
 	
 	<TD_Find_Lib.ThingQueryDef>
 		<defName>Query_Faction</defName>
