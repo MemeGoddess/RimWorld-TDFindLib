@@ -25,7 +25,11 @@ namespace TD_Find_Lib
 		{
 			//outThings would get cleared inside so can't be added to directly
 			ThingOwnerUtility.GetAllThingsRecursively(holder, _allKnownThingsList, true, DebugSettings.godMode ? null : CanPeekInventory);
-			outThings.AddRange(_allKnownThingsList);
+			outThings.AddRange(_allKnownThingsList.Where(thing => {
+				var parentHolder = thing.ParentHolder;
+
+				return parentHolder is not Corpse && parentHolder is not MinifiedThing;
+			}));
 		}
 
 		// I assume you won't ask about fogged things, or tradeships

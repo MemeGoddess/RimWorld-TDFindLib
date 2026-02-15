@@ -15,3 +15,5 @@ jobs:
           # I highly recommend you have one as well
           # Only update after you've deployed to staging and confirmed it works
           workshopId: '3529443295' 
+          
+          ExcludedProjectFiles: 'ModSupport/RealFOW/RealFOW.csproj'

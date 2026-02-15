@@ -619,7 +619,7 @@ For MOST searches you'll want to set that to something else, like ""Searching Th
 					newListedThings.AddRange(searchMap.listerThings.AllThings.Where(t => t.def.filthLeaving == ThingDefOf.Filth_RubbleRock).MaybeWhere(visible));
 			}
 
-			if (searchListType.HasFlag(SearchListType.Inventory))
+			if (searchListType.HasFlag(SearchListType.Inventory) | searchListType.HasFlag(SearchListType.All) | searchListType.HasFlag(SearchListType.Selectable))
 			{
 				foreach (Thing t in searchMap.listerThings.ThingsInGroup(ThingRequestGroup.ThingHolder).MaybeWhere(visible))
 					if (t is IThingHolder holder)// && t is not Corpse && t is not MinifiedThing)
