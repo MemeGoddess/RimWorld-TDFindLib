@@ -251,7 +251,7 @@ namespace TD_Find_Lib
 
 
 
-	public class ThingQueryDesignation : ThingQueryDropDown<DesignationDef>
+	public class ThingQueryDesignation : ThingQueryDropDown<Designator>
 	{
 		public ThingQueryDesignation() => extraOption = 1;
 
@@ -259,15 +259,18 @@ namespace TD_Find_Lib
 		{
 			if (extraOption == 1)
 				return thing.MapHeld.designationManager.DesignationOn(thing) != null
-					|| thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Count() > 0;
+					|| thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Any();
 
 			if (sel == null)
 				return thing.MapHeld.designationManager.DesignationOn(thing) == null
-					&& thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Count() == 0;
+					&& !thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Any();
 
-			return sel.targetType == TargetType.Thing ? thing.MapHeld.designationManager.DesignationOn(thing, sel) != null :
-				thing.MapHeld.designationManager.DesignationAt(thing.PositionHeld, sel) != null;
+			return sel.Designation.targetType == TargetType.Thing ? thing.MapHeld.designationManager.DesignationOn(thing, sel.Designation) != null :
+				thing.MapHeld.designationManager.DesignationAt(thing.PositionHeld, sel.Designation) != null;
 		}
+
+		public override IEnumerable<Designator> AllOptions() => Find.ReverseDesignatorDatabase.AllDesignators;
+		public override string NameFor(Designator o) => o?.Label;
 
 		public override string NullOption() => "None".Translate();
 
@@ -275,9 +278,11 @@ namespace TD_Find_Lib
 		public override string NameForExtra(int ex) => "TD.AnyOption".Translate();
 
 		public override bool Ordered => true;
-		//There really aren't too many designations to filter them down
-		//public override IEnumerable<DesignationDef> AvailableOptions() =>
-		//	Find.CurrentMap.designationManager.AllDesignations.Select(d => d.def);
+
+		public override Texture2D IconTexFor(Designator o)
+		{
+			return o.icon as Texture2D;
+		}
 	}
 
 	public class ThingQueryCanDesignate : ThingQueryDropDown<Designator>
@@ -298,6 +303,10 @@ namespace TD_Find_Lib
 		public override IEnumerable<Designator> AllOptions() => Find.ReverseDesignatorDatabase.AllDesignators;
 		public override string NameFor(Designator o) => o?.Label;
 		public override bool Ordered => true;
+		public override Texture2D IconTexFor(Designator o)
+		{
+			return o.icon as Texture2D;
+		}
 	}
 
 	public class ThingQueryFreshness : ThingQueryDropDown<RotStage>
