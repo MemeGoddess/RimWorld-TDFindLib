@@ -529,7 +529,7 @@ namespace TD_Find_Lib
 						0 => null,
 						1 => FloatFor(cDef.subQueries.First()),
 						_ => Settings.FloatSubMenuInstalled
-							? FloatSubMenu.NewMenu(cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).ToList())
+							? FloatSubMenu.NewMenu(cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).Where(x => x != null).ToList())
 							: new FloatMenuOption("+ " + cDef.LabelCap, () => DoFloatAllQueries(cDef.subQueries))
 					};
 				}
