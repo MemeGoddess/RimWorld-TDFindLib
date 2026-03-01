@@ -343,6 +343,7 @@
 			<li>Query_Wool</li>
 			<li>Query_ProductProgress</li>
 			<li>Query_Trained</li>
+			<li>Query_Bonded</li>
 		</subQueries>
 	</TD_Find_Lib.ThingQueryCategoryDef>
 
@@ -392,6 +393,12 @@
 		<defName>Query_Trained</defName>
 		<label>trained</label>
 		<queryClass>TD_Find_Lib.ThingQueryTrained</queryClass>
+	</TD_Find_Lib.ThingQueryDef>
+
+	<TD_Find_Lib.ThingQueryDef>
+		<defName>Query_Bonded</defName>
+		<label>bonded</label>
+		<queryClass>TD_Find_Lib.ThingQueryBonded</queryClass>
 	</TD_Find_Lib.ThingQueryDef>
 
 	

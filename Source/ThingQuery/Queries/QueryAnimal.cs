@@ -372,4 +372,12 @@ namespace TD_Find_Lib
 			return TDWidgets.IntRangeUB(fullRect.RightHalfClamped(row.FinalX), id, ref stepRange);
 		}
 	}
+
+	public class ThingQueryBonded : ThingQuery
+	{
+		public override bool AppliesDirectlyTo(Thing thing)
+		{
+			return thing is Pawn pawn && TrainableUtility.GetAllColonistBondsFor(pawn).Any();
+		}
+	}
 }
