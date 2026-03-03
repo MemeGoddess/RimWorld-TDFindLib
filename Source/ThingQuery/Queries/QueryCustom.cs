@@ -1420,7 +1420,6 @@ namespace TD_Find_Lib
 
 	// ThingQueryCustom
 	// And we finally get to the Query itself that uses the above FieldData subclasses.
-	[StaticConstructorOnStartup]
 	public class ThingQueryCustom : ThingQuery
 	{
 		public static readonly List<Type> thingSubclasses;

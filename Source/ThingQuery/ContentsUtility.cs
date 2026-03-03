@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace TD_Find_Lib
 {
-	[StaticConstructorOnStartup]
 	public static class ContentsUtility
 	{
 		public static bool IsValidHolder(this IThingHolder holder)

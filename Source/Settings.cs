@@ -24,13 +24,7 @@ namespace TD_Find_Lib
 		{
 			SanityCheck();
 			SearchTransfer.Register(this);
-			FloatSubMenuInstalled = ModsConfig.IsActive("kathanon.FloatSubMenu") || ModsConfig.IsActive("kathanon.FloatSubMenu_steam");
-			if (FloatSubMenuInstalled &&
-			    !AppDomain.CurrentDomain.GetAssemblies().Any(x => x.FullName.StartsWith("TDFindLib_FloatSubMenu")))
-			{
-				Verse.Log.Error("Float Sub-Menu is installed, but TD Compatibility for it isn't. Disabling Float Sub-Menus in TD Find Lib.");
-				FloatSubMenuInstalled = false;
-			}
+			FloatSubMenuInstalled = ModLister.AnyModActiveNoSuffix(["kathanon.FloatSubMenu"]);
 		}
 
 		//ISearchStorageParent stuff

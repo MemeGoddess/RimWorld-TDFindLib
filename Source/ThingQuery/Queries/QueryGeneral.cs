@@ -1119,7 +1119,6 @@ namespace TD_Find_Lib
 		}
 	}
 
-	[StaticConstructorOnStartup]
 	public class ThingQueryModded : ThingQueryDropDown<ModContentPack>
 	{
 		public ThingQueryModded()

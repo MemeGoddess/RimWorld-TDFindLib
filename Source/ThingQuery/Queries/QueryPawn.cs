@@ -1333,7 +1333,6 @@ namespace TD_Find_Lib
 	}
 
 
-	[StaticConstructorOnStartup]
 	public class ThingQueryAbiltyCategory : ThingQueryCategorizedDropdownHelper<AbilityDef, ModContentPack, ThingQueryAbility, ThingQueryAbiltyCategory>
 	{
 		public static ModContentPack CategoryFor(AbilityDef def) => def.modContentPack;
@@ -1748,7 +1747,6 @@ namespace TD_Find_Lib
 	}
 
 	public enum ScheduleFilterType { Current, AllScheduleIs, AnyScheduleNot}
-	[StaticConstructorOnStartup]
 	public class ThingQuerySchedule : ThingQuery
 	{
 		public ScheduleFilterType filterType;
@@ -1869,11 +1867,10 @@ namespace TD_Find_Lib
 
 
 		private TimeAssignmentDef newAssignment; //To be drag-assigned to others
-		private static Texture2D nullTexture = SolidColorMaterials.NewSolidColorTexture(new Color(0, 0, 0, 0.8f));
 		private bool DrawTimeAssignment(Rect rect, int hour)
 		{
 			TimeAssignmentDef assignment = timetable[hour];
-			GUI.DrawTexture(rect, assignment?.ColorTexture ?? nullTexture);
+			GUI.DrawTexture(rect, assignment?.ColorTexture ?? FindTex.NullTexture);
 			GUI.color = Color.gray;
 			Widgets.DrawBox(rect, 1);//highlight mouseover
 			GUI.color = Color.white;
