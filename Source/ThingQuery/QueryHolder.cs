@@ -526,10 +526,10 @@ namespace TD_Find_Lib
 					var count = cDef.subQueries.Count(d => d.Visible());
 					return count switch
 					{
-						0 => null,
+						0 => new FloatMenuOption(cDef.LabelCap.ToString(), null),
 						1 => FloatFor(cDef.subQueries.First()),
 						_ => Settings.FloatSubMenuInstalled
-							? FloatSubMenu.NewMenu(cDef.LabelCap.ToString(), cDef.subQueries.Select(FloatFor).Where(x => x != null).ToList())
+							? FloatSubMenu.NewMenu(cDef.LabelCap.ToString(), cDef.subQueries.Where(x => x.Visible()).Select(FloatFor).ToList())
 							: new FloatMenuOption("+ " + cDef.LabelCap, () => DoFloatAllQueries(cDef.subQueries))
 					};
 				}
