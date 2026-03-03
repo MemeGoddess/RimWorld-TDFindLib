@@ -188,12 +188,15 @@ namespace TD_Find_Lib
 
 
 		private static List<SearchGroup> _library;
-		private static List<SearchGroup> Library => _library ??= ScribeXmlFromString.LoadListFromString<SearchGroup>(
-				File.ReadAllText(
-					GenFile.ResolveCaseInsensitiveFilePath(
-						LoadedModManager.GetMod<Mod>().Content.ModMetaData.RootDir.FullName
-						+ Path.DirectorySeparatorChar + "About", "DefaultSearches.xml")),
-				null, null);
+		private static List<SearchGroup> Library => _library ??= 
+			DefDatabase<DefaultSearchDef>.AllDefsListForReading.SelectMany(x => x.searches).ToList();
+			//ScribeXmlFromString.LoadListFromString<SearchGroup>(
+			//	File.ReadAllText(
+			//		GenFile.ResolveCaseInsensitiveFilePath(
+			//			LoadedModManager.GetMod<Mod>().Content.ModMetaData.RootDir.FullName
+			////			+ Path.DirectorySeparatorChar + "About", "DefaultSearches.xml")),
+			//	null, null);
+			
 
 		public static List<SearchGroup> CopyLibrary => Library.Select(g => g.Clone(default)).ToList();
 

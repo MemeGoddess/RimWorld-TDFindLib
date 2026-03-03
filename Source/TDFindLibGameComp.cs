@@ -50,7 +50,7 @@ namespace TD_Find_Lib
 		{
 			if (Scribe.mode == LoadSaveMode.Saving)
 			{
-				var savedR = searchRefreshers.FindAll(r => r.permanent);
+				var savedR = searchRefreshers.Where(r => r.permanent).ToList();
 				Scribe_Collections.Look(ref savedR, "refreshers");
 			}
 			else

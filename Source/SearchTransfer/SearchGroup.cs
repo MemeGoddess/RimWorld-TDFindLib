@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 using CloneArgs = TD_Find_Lib.QuerySearch.CloneArgs;
+using System.Collections;
 
 namespace TD_Find_Lib
 {
@@ -30,6 +31,10 @@ namespace TD_Find_Lib
 			this.parent = parent;
 		}
 
+		public SearchGroup()
+		{
+			
+		}
 
 		public SearchGroup Clone(CloneArgs cloneArgs, string newName = null, ISearchStorageParent newParent = null)
 		{
@@ -69,8 +74,58 @@ namespace TD_Find_Lib
 		}
 	}
 
-	public abstract class SearchGroupBase<T> : List<T>, IExposable where T : IQuerySearch
+	public abstract class SearchGroupBase<T> : IList<T>, IExposable where T : IQuerySearch
 	{
+		private List<T> searches = new List<T>();
+
+		// Abstractions
+		public IEnumerator<T> GetEnumerator() =>
+			searches.GetEnumerator();
+
+		IEnumerator IEnumerable.GetEnumerator() =>
+			GetEnumerator();
+
+		public void Add(T item) =>
+			searches.Add(item);
+
+		public void Clear() =>
+			searches.Clear();
+
+		public bool Contains(T item) =>
+			searches.Contains(item);
+
+		public void CopyTo(T[] array, int arrayIndex) =>
+			searches.CopyTo(array, arrayIndex);
+
+		public bool Remove(T item) =>
+			searches.Remove(item);
+
+		public int Count { get; }
+		public bool IsReadOnly { get; }
+
+		public int IndexOf(T item) =>
+			searches.IndexOf(item);
+
+		public void Insert(int index, T item) =>
+			searches.Insert(index, item);
+
+		public void RemoveAt(int index) =>
+			searches.RemoveAt(index);
+
+		public int RemoveAll(Predicate<T> remove) => 
+			searches.RemoveAll(remove);
+
+		public void AddRange(IList<T> newSearches) => 
+			searches.AddRange(newSearches);
+
+		public int FindLastIndex(Predicate<T> match) =>
+			searches.FindLastIndex(match);
+
+		public T this[int index]
+		{
+			get => searches[index];
+			set => searches[index] = value;
+		}
 		public virtual void Replace(T newSearch, int i)
 		{
 			this[i] = newSearch;
@@ -82,7 +137,7 @@ namespace TD_Find_Lib
 		}
 		public virtual void DoAdd(T newSearch)
 		{
-			base.Add(newSearch);
+			Add(newSearch);
 		}
 
 		public void ConfirmPaste(T newSearch, int i)
@@ -105,7 +160,7 @@ namespace TD_Find_Lib
 
 		public void TryAdd(T search)
 		{
-			if (this.FindIndex(d => d.Search.name == search.Search.name) is int index && index != -1)
+			if (searches.FindIndex(d => d.Search.name == search.Search.name) is int index && index != -1)
 				ConfirmPaste(search, index);
 			else
 				DoAdd(search);
@@ -134,10 +189,10 @@ namespace TD_Find_Lib
 						Clear();
 
 						foreach (XmlNode node in curXmlParent.ChildNodes)
-							base.Add(ScribeExtractor.SaveableFromNode<T>(node, new object[] { }));
+							Add(ScribeExtractor.SaveableFromNode<T>(node, new object[] { }));
 
 						// Somehow this happened perhaps with modded subclass of ThingQuery
-						base.RemoveAll(i => i == null);
+						searches.RemoveAll(i => i == null);
 					}
 				}
 				finally

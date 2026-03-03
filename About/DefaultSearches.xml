@@ -837,7 +837,7 @@
 <li>
 	<name>Expansions</name>
 	<searches>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Royalty">
 			<name>Permit action available</name>
 			<listType>Everyone</listType>
 			<mapType>AllMaps</mapType>
@@ -854,7 +854,7 @@
 			</queries>
 			<matchAllQueries>False</matchAllQueries>
 		</li>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Royalty">
 			<name>Royal uncomfortable</name>
 			<listType>Everyone</listType>
 			<mapType>AllMaps</mapType>
@@ -872,7 +872,7 @@
 			</queries>
 			<matchAllQueries>True</matchAllQueries>
 		</li>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Ideology">
 			<name>Ideological problem</name>
 			<listType>Everyone</listType>
 			<mapType>AllMaps</mapType>
@@ -907,7 +907,7 @@
 			</queries>
 			<matchAllQueries>True</matchAllQueries>
 		</li>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Biotech">
 			<name>Mechanitor needs mechs</name>
 			<listType>Selectable</listType>
 			<mapType>AllMaps</mapType>
@@ -921,7 +921,7 @@
 			</queries>
 			<matchAllQueries>True</matchAllQueries>
 		</li>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Biotech">
 			<name>Wasted Genes</name>
 			<listType>Everyone</listType>
 			<mapType>AllMaps</mapType>
@@ -951,7 +951,7 @@
 			</queries>
 			<matchAllQueries>True</matchAllQueries>
 		</li>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Ideology">
 			<name>Guarenlen low</name>
 			<listType>Plants</listType>
 			<searchMaps />
@@ -1007,7 +1007,7 @@
 			</queries>
 			<matchAllQueries>False</matchAllQueries>
 		</li>
-		<li>
+		<li MayRequire="Ludeon.RimWorld.Ideology">
 			<name>To Convert</name>
 			<listType>Everyone</listType>
 			<searchMaps />
