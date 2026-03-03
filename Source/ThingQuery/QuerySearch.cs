@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Verse;
 using RimWorld;
+using System.Xml;
 
 namespace TD_Find_Lib
 {
@@ -377,6 +378,21 @@ For MOST searches you'll want to set that to something else, like ""Searching Th
 
 			base.ExposeData();
 		}
+
+		//public void LoadDataFromXmlCustom(XmlNode xmlRoot)
+		//{
+		//	var text = xmlRoot.OuterXml;
+		//	var query = ScribeXmlFromString.LoadFromString<QuerySearch>(text);
+
+		//	name = query.name;
+		//	active = query.active;
+		//	parameters.listType = query.parameters.listType;
+		//	parameters.mapType = query.parameters.mapType;
+		//	parameters.searchMaps = query.parameters.searchMaps;
+
+		//	if (parameters.listType == 0)
+		//		parameters.listType = SearchListType.Selectable;
+		//}
 
 
 		public string GetMapNameSuffix()

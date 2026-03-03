@@ -51,7 +51,7 @@ namespace TD_Find_Lib
 	}
 
 
-	public abstract class ThingQuery : IExposable
+	public class ThingQuery : IExposable
 	{
 		public ThingQueryDef def;
 
@@ -169,7 +169,9 @@ namespace TD_Find_Lib
 			return applies == include;
 		}
 
-		public abstract bool AppliesDirectlyTo(Thing thing);
+		public virtual bool AppliesDirectlyTo(Thing thing)
+		{
+			return false;}
 
 
 		private bool shouldFocus;
