@@ -582,7 +582,7 @@ namespace TD_Find_Lib
 
 		public override bool UsesResolveName => IsDef;
 		public override bool UsesResolveRef => IsRef;
-		public bool ShouldSaveLoadByName = true;
+		public bool ShouldSaveLoadByName = false;
 		private bool SaveLoadByName => UsesResolveName || UsesResolveRef || ShouldSaveLoadByName;
 		protected virtual string MakeSaveName() => sel?.ToString() ?? SaveLoadXmlConstants.IsNullAttributeName;
 
