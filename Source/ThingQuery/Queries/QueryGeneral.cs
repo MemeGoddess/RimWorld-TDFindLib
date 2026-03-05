@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Verse;
 using RimWorld;
 using UnityEngine;
+using SaveLoadXmlConstants = Verse.SaveLoadXmlConstants;
 
 namespace TD_Find_Lib
 {
@@ -253,7 +254,11 @@ namespace TD_Find_Lib
 
 	public class ThingQueryDesignation : ThingQueryDropDown<Designator>
 	{
-		public ThingQueryDesignation() => extraOption = 1;
+		public ThingQueryDesignation()
+		{
+			extraOption = 1;
+			ShouldSaveLoadByName = true;
+		}
 
 		public override bool AppliesDirectlyTo(Thing thing)
 		{
@@ -269,7 +274,8 @@ namespace TD_Find_Lib
 				thing.MapHeld.designationManager.DesignationAt(thing.PositionHeld, sel.Designation) != null;
 		}
 
-		public override IEnumerable<Designator> AllOptions() => Find.ReverseDesignatorDatabase.AllDesignators;
+		private List<Designator> allOptions;
+		public override IEnumerable<Designator> AllOptions() => allOptions ??= Find.ReverseDesignatorDatabase.AllDesignators.Where(x => x.Designation != null).ToList();
 		public override string NameFor(Designator o) => o?.Label;
 
 		public override string NullOption() => "None".Translate();
@@ -279,16 +285,35 @@ namespace TD_Find_Lib
 
 		public override bool Ordered => true;
 
-		public override Texture2D IconTexFor(Designator o)
+		public override Texture2D IconTexFor(Designator o) => o.icon as Texture2D;
+
+		protected override void PostProcess()
 		{
-			return o.icon as Texture2D;
+			base.PostProcess();
+			if (Find.CurrentMap == null)
+				return;
+
+			if (extraOption == 0 && sel == null && selName != SaveLoadXmlConstants.IsNullAttributeName)
+				sel = ResolveRef(null);
 		}
+
+		protected override string MakeSaveName() => sel?.GetType().FullName ?? SaveLoadXmlConstants.IsNullAttributeName;
+
+		protected override Designator ResolveRef(Map map) => 
+			AllOptions().FirstOrDefault(x => x.GetType().FullName == selName);
 	}
 
 	public class ThingQueryCanDesignate : ThingQueryDropDown<Designator>
 	{
+		public ThingQueryCanDesignate()
+		{
+			extraOption = 1;
+			ShouldSaveLoadByName = true;
+		}
 		public override bool AppliesDirectlyTo(Thing thing)
 		{
+			if (extraOption == 1)
+				return AllOptions().Any(x => x.CanDesignateThing(thing));
 			try
 			{
 				return sel?.CanDesignateThing(thing) == true;
@@ -301,12 +326,25 @@ namespace TD_Find_Lib
 
 		public override string NullOption() => "None".Translate();
 		public override IEnumerable<Designator> AllOptions() => Find.ReverseDesignatorDatabase.AllDesignators;
+		public override int ExtraOptionsCount => 1;
+		public override string NameForExtra(int ex) => "TD.AnyOption".Translate();
 		public override string NameFor(Designator o) => o?.Label;
 		public override bool Ordered => true;
 		public override Texture2D IconTexFor(Designator o)
 		{
 			return o.icon as Texture2D;
 		}
+
+		protected override string MakeSaveName() => sel?.GetType()?.FullName ?? SaveLoadXmlConstants.IsNullAttributeName;
+
+		protected override void PostProcess()
+		{
+			base.PostProcess();
+			if (extraOption == 0 && sel == null && selName != SaveLoadXmlConstants.IsNullAttributeName)
+				sel = ResolveRef(null);
+		}
+
+		protected override Designator ResolveRef(Map map) => AllOptions().FirstOrDefault(x => x.GetType().FullName == selName);
 	}
 
 	public class ThingQueryFreshness : ThingQueryDropDown<RotStage>

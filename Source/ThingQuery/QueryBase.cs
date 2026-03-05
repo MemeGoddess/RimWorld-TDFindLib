@@ -147,7 +147,7 @@ namespace TD_Find_Lib
 		public virtual void DoResolveRef(Map map) { }
 		public virtual void WarnIfNameSelectionError() { }
 
-
+		
 
 		public void Apply( /* const */ List<Thing> inList, List<Thing> outList)
 		{
@@ -582,7 +582,8 @@ namespace TD_Find_Lib
 
 		public override bool UsesResolveName => IsDef;
 		public override bool UsesResolveRef => IsRef;
-		private bool SaveLoadByName => UsesResolveName || UsesResolveRef;
+		public bool ShouldSaveLoadByName = true;
+		private bool SaveLoadByName => UsesResolveName || UsesResolveRef || ShouldSaveLoadByName;
 		protected virtual string MakeSaveName() => sel?.ToString() ?? SaveLoadXmlConstants.IsNullAttributeName;
 
 		public override void ExposeData()
