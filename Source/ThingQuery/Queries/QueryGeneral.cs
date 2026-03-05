@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
@@ -254,6 +256,11 @@ namespace TD_Find_Lib
 
 	public class ThingQueryDesignation : ThingQueryDropDown<Designator>
 	{
+		private static Type[] allowedExtras =
+		[
+			typeof(Designator_PlantsHarvestWood), typeof(Designator_SmoothSurface), typeof(Designator_ExtractTree),
+			typeof(Designator_ExtractSkull), typeof(Designator_RemovePaint)
+		];
 		public ThingQueryDesignation()
 		{
 			extraOption = 1;
@@ -269,13 +276,56 @@ namespace TD_Find_Lib
 			if (sel == null)
 				return thing.MapHeld.designationManager.DesignationOn(thing) == null
 					&& !thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Any();
+			return sel switch
+			{
+				Designator_PlantsHarvestWood harvestWood => thing is Plant plant &&
+				                                            harvestWood.RemoveAllDesignationsAffects(plant) &&
+				                                            IsDesignated(thing),
 
-			return sel.Designation.targetType == TargetType.Thing ? thing.MapHeld.designationManager.DesignationOn(thing, sel.Designation) != null :
-				thing.MapHeld.designationManager.DesignationAt(thing.PositionHeld, sel.Designation) != null;
+				Designator_PlantsHarvest harvest => thing is Plant plant && 
+				                                    harvest.RemoveAllDesignationsAffects(plant) &&
+				                                    IsDesignated(thing),
+
+				Designator_Smooth => IsDesignated(thing, DesignationDefOf.SmoothFloor) ||
+				                     IsDesignated(thing, DesignationDefOf.SmoothWall),
+
+				Designator_ExtractTree => IsDesignated(thing, DesignationDefOf.ExtractTree),
+				Designator_ExtractSkull => IsDesignated(thing, DesignationDefOf.ExtractSkull),
+				Designator_RemovePaint => IsDesignated(thing, DesignationDefOf.RemovePaintBuilding) ||
+				                          IsDesignated(thing, DesignationDefOf.RemovePaintFloor),
+
+				_ => IsDesignated(thing)
+			};
+		}
+
+		private bool IsDesignated(Thing thing, DesignationDef def = null)
+		{
+			def ??= sel.Designation;
+			return def.targetType == TargetType.Thing ? thing.MapHeld.designationManager.DesignationOn(thing, def) != null :
+				thing.MapHeld.designationManager.DesignationAt(thing.PositionHeld, def) != null;
 		}
 
 		private List<Designator> allOptions;
-		public override IEnumerable<Designator> AllOptions() => allOptions ??= Find.ReverseDesignatorDatabase.AllDesignators.Where(x => x.Designation != null).ToList();
+		public override IEnumerable<Designator> AllOptions()
+		{
+			if (allOptions != null)
+				return allOptions;
+
+			// Yeah, this is a little intense, but kinda needed. All Designators doesn't contain all of them. Some designators don't have their defs attached. Etc ;(
+			allOptions = Find.ReverseDesignatorDatabase.AllDesignators.ToList();
+
+			allOptions.AddRange(DefDatabase<DesignationCategoryDef>.AllDefs.SelectMany(category => category.ResolvedAllowedDesignators.Where(IsDesignatorValid)));
+
+			var extras = allOptions.Where(x => allowedExtras.Contains(x.GetType())).GroupBy(x => x.GetType()).Select(x => x.FirstOrDefault()).ToList();
+			allOptions.RemoveAll(x => x.Designation == null && !allowedExtras.Contains(x.GetType()));
+			allOptions = allOptions.GroupBy(x => x.Designation).Select(x => x.FirstOrDefault()).ToList();
+
+			allOptions.AddRange(extras);
+			allOptions = allOptions.GroupBy(x => x.GetType()).Select(x => x.FirstOrDefault()).ToList();
+
+			return allOptions;
+		}
+
 		public override string NameFor(Designator o) => o?.Label;
 
 		public override string NullOption() => "None".Translate();
@@ -301,6 +351,14 @@ namespace TD_Find_Lib
 
 		protected override Designator ResolveRef(Map map) => 
 			AllOptions().FirstOrDefault(x => x.GetType().FullName == selName);
+
+		private bool IsDesignatorValid(Designator designator)
+		{
+			if (allowedExtras.Contains(designator.GetType()))
+				return true;
+
+			return designator.Designation != null;
+		}
 	}
 
 	public class ThingQueryCanDesignate : ThingQueryDropDown<Designator>
