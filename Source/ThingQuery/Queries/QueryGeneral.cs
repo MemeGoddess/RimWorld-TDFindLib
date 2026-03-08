@@ -254,155 +254,131 @@ namespace TD_Find_Lib
 
 
 
-	public class ThingQueryDesignation : ThingQueryDropDown<Designator>
+	public abstract class ThingQueryDesignationDef : ThingQueryDropDown<DesignationDef>
 	{
-		private static Type[] allowedExtras =
-		[
-			typeof(Designator_PlantsHarvestWood), typeof(Designator_SmoothSurface), typeof(Designator_ExtractTree),
-			typeof(Designator_ExtractSkull), typeof(Designator_RemovePaint)
-		];
-		public ThingQueryDesignation()
+		// `DesignationDef`s that have corresponding `Designator`s.
+		private static readonly Lazy<Dictionary<DesignationDef, Designator>> designatorCache = new(() =>
 		{
-			extraOption = 1;
-			ShouldSaveLoadByName = true;
-		}
+			Dictionary<DesignationDef, Designator> cache = [];
+			var reverseDesignators = Find.ReverseDesignatorDatabase.AllDesignators;
+			var resolvedDesignators = DefDatabase<DesignationCategoryDef>.AllDefs.SelectMany(category => category.ResolvedAllowedDesignators);
 
+			foreach (var designator in reverseDesignators.Concat(resolvedDesignators))
+			{
+				// Some designators don't have explicitly associated designation, we have to do some hardcoding.
+				var designation = designator.Designation ?? designator.GetType() switch
+				{
+					var type when type == typeof(Designator_ExtractSkull) => DesignationDefOf.ExtractSkull,
+					var type when type == typeof(Designator_ExtractTree) => DesignationDefOf.ExtractTree,
+					var type when type == typeof(Designator_Plan) => DesignationDefOf.Plan,
+					var type when type == typeof(Designator_ReleaseAnimalToWild) => DesignationDefOf.ReleaseAnimalToWild,
+					var type when type == typeof(Designator_RemoveFloor) => DesignationDefOf.RemoveFloor,
+					var type when type == typeof(Designator_RemoveFloorPaint) => DesignationDefOf.RemovePaintFloor,
+					var type when type == typeof(Designator_RemoveFoundation) => DesignationDefOf.RemoveFoundation,
+					var type when type == typeof(Designator_RemovePaint) => DesignationDefOf.RemovePaintBuilding,
+					var type when type == typeof(Designator_SmoothFloors) => DesignationDefOf.SmoothFloor,
+					var type when type == typeof(Designator_SmoothWalls) => DesignationDefOf.SmoothWall,
+					_ => null
+				};
+
+				if (designation != null)
+				{
+					cache.TryAdd(designation, designator);
+				}
+			}
+
+			return cache;
+		});
+
+		protected static IReadOnlyDictionary<DesignationDef, Designator> Designators() => designatorCache.Value;
+		protected static Designator DesignatorFor(DesignationDef def) => def == null ? null : Designators().GetValueOrDefault(def);
+
+		public ThingQueryDesignationDef() => extraOption = 1;
+		public override string NullOption() => "None".Translate();
+		public override bool Ordered => true;
+		public override string NameFor(DesignationDef def) => DesignatorFor(def)?.LabelCap ?? def.GetLabel();
+		public override string NameForExtra(int ex) => "TD.AnyOption".Translate();
+		public override Texture2D IconTexFor(DesignationDef o) => DesignatorFor(o)?.icon as Texture2D ?? ContentFinder<Texture2D>.Get(o.texturePath);
+		protected Designator Designator => DesignatorFor(sel);
+	}
+
+	public class ThingQueryDesignation : ThingQueryDesignationDef
+	{
 		public override bool AppliesDirectlyTo(Thing thing)
 		{
+			var designationManager = thing.MapHeld.designationManager;
+			bool HasAnyDesignation(Thing thing) => designationManager.DesignationOn(thing) != null || designationManager.AllDesignationsAt(thing.PositionHeld).Any();
+
+			// Has any designation.
 			if (extraOption == 1)
-				return thing.MapHeld.designationManager.DesignationOn(thing) != null
-					|| thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Any();
-
-			if (sel == null)
-				return thing.MapHeld.designationManager.DesignationOn(thing) == null
-					&& !thing.MapHeld.designationManager.AllDesignationsAt(thing.PositionHeld).Any();
-			return sel switch
 			{
-				Designator_PlantsHarvestWood harvestWood => thing is Plant plant &&
-				                                            harvestWood.RemoveAllDesignationsAffects(plant) &&
-				                                            IsDesignated(thing),
+				return HasAnyDesignation(thing);
+			}
 
-				Designator_PlantsHarvest harvest => thing is Plant plant && 
-				                                    harvest.RemoveAllDesignationsAffects(plant) &&
-				                                    IsDesignated(thing),
+			// Has no designation.
+			if (sel == null)
+			{
+				return !HasAnyDesignation(thing);
+			}
 
-				Designator_Smooth => IsDesignated(thing, DesignationDefOf.SmoothFloor) ||
-				                     IsDesignated(thing, DesignationDefOf.SmoothWall),
-
-				Designator_ExtractTree => IsDesignated(thing, DesignationDefOf.ExtractTree),
-				Designator_ExtractSkull => IsDesignated(thing, DesignationDefOf.ExtractSkull),
-				Designator_RemovePaint => IsDesignated(thing, DesignationDefOf.RemovePaintBuilding) ||
-				                          IsDesignated(thing, DesignationDefOf.RemovePaintFloor),
-
-				_ => IsDesignated(thing)
-			};
-		}
-
-		private bool IsDesignated(Thing thing, DesignationDef def = null)
-		{
-			def ??= sel.Designation;
-			return def.targetType == TargetType.Thing ? thing.MapHeld.designationManager.DesignationOn(thing, def) != null :
-				thing.MapHeld.designationManager.DesignationAt(thing.PositionHeld, def) != null;
-		}
-
-		private List<Designator> allOptions;
-		public override IEnumerable<Designator> AllOptions()
-		{
-			if (allOptions != null)
-				return allOptions;
-
-			// Yeah, this is a little intense, but kinda needed. All Designators doesn't contain all of them. Some designators don't have their defs attached. Etc ;(
-			allOptions = Find.ReverseDesignatorDatabase.AllDesignators.ToList();
-
-			allOptions.AddRange(DefDatabase<DesignationCategoryDef>.AllDefs.SelectMany(category => category.ResolvedAllowedDesignators.Where(IsDesignatorValid)));
-
-			var extras = allOptions.Where(x => allowedExtras.Contains(x.GetType())).GroupBy(x => x.GetType()).Select(x => x.FirstOrDefault()).ToList();
-			allOptions.RemoveAll(x => x.Designation == null && !allowedExtras.Contains(x.GetType()));
-			allOptions = allOptions.GroupBy(x => x.Designation).Select(x => x.FirstOrDefault()).ToList();
-
-			allOptions.AddRange(extras);
-			allOptions = allOptions.GroupBy(x => x.GetType()).Select(x => x.FirstOrDefault()).ToList();
-
-			return allOptions;
-		}
-
-		public override string NameFor(Designator o) => o?.Label;
-
-		public override string NullOption() => "None".Translate();
-
-		public override int ExtraOptionsCount => 1;
-		public override string NameForExtra(int ex) => "TD.AnyOption".Translate();
-
-		public override bool Ordered => true;
-
-		public override Texture2D IconTexFor(Designator o) => o.icon as Texture2D;
-
-		protected override void PostProcess()
-		{
-			base.PostProcess();
-			if (Find.CurrentMap == null)
-				return;
-
-			if (extraOption == 0 && sel == null && selName != SaveLoadXmlConstants.IsNullAttributeName)
-				sel = ResolveRef(null);
-		}
-
-		protected override string MakeSaveName() => sel?.GetType().FullName ?? SaveLoadXmlConstants.IsNullAttributeName;
-
-		protected override Designator ResolveRef(Map map) => 
-			AllOptions().FirstOrDefault(x => x.GetType().FullName == selName);
-
-		private bool IsDesignatorValid(Designator designator)
-		{
-			if (allowedExtras.Contains(designator.GetType()))
-				return true;
-
-			return designator.Designation != null;
+			return sel.targetType == TargetType.Thing ? designationManager.DesignationOn(thing, sel) != null :
+				designationManager.DesignationAt(thing.PositionHeld, sel) != null;
 		}
 	}
 
-	public class ThingQueryCanDesignate : ThingQueryDropDown<Designator>
+	public class ThingQueryCanDesignate : ThingQueryDesignationDef
 	{
-		public ThingQueryCanDesignate()
+		// `DesignationDef`s that do not have corresponding `Designator`s.
+		private static readonly Dictionary<DesignationDef, Func<Thing, bool>> extraCanDesignateQueries = new()
 		{
-			extraOption = 1;
-			ShouldSaveLoadByName = true;
-		}
+			{ DesignationDefOf.Flick, thing => thing.HasComp<CompFlickable>() }
+		};
+
 		public override bool AppliesDirectlyTo(Thing thing)
 		{
+			static bool CanDesignateThingNoThrow(Designator designator, Thing thing)
+			{
+				try
+				{
+					return designator.CanDesignateThing(thing);
+				}
+				catch
+				{
+					return false;
+				}
+			}
+
+			bool CanDesignateAny(Thing thing) => Designators().Any(p => CanDesignateThingNoThrow(p.Value, thing)) || extraCanDesignateQueries.Any(p => p.Value(thing));
+
+			// Can designate any.
 			if (extraOption == 1)
-				return AllOptions().Any(x => x.CanDesignateThing(thing));
-			try
 			{
-				return sel?.CanDesignateThing(thing) == true;
+				return CanDesignateAny(thing);
 			}
-			catch
+
+			// Can designate none.
+			if (sel == null)
 			{
-				return false;
+				// Best effort implementation. We don't have a way to check all possible designations.
+				return !CanDesignateAny(thing);
 			}
+
+			// If the current `DesignationDef` has a corresponding `Designator`.
+			if (Designator is Designator designator)
+			{
+				return sel.targetType == TargetType.Thing ? CanDesignateThingNoThrow(designator, thing) : designator.CanDesignateCell(thing.PositionHeld);
+			}
+
+			// If the current `DesignationDef` has a manually specified checker.
+			if (extraCanDesignateQueries.TryGetValue(sel, out var canDesignate))
+			{
+				return canDesignate(thing);
+			}
+
+			return false;
 		}
 
-		public override string NullOption() => "None".Translate();
-		public override IEnumerable<Designator> AllOptions() => Find.ReverseDesignatorDatabase.AllDesignators;
-		public override int ExtraOptionsCount => 1;
-		public override string NameForExtra(int ex) => "TD.AnyOption".Translate();
-		public override string NameFor(Designator o) => o?.Label;
-		public override bool Ordered => true;
-		public override Texture2D IconTexFor(Designator o)
-		{
-			return o.icon as Texture2D;
-		}
-
-		protected override string MakeSaveName() => sel?.GetType()?.FullName ?? SaveLoadXmlConstants.IsNullAttributeName;
-
-		protected override void PostProcess()
-		{
-			base.PostProcess();
-			if (extraOption == 0 && sel == null && selName != SaveLoadXmlConstants.IsNullAttributeName)
-				sel = ResolveRef(null);
-		}
-
-		protected override Designator ResolveRef(Map map) => AllOptions().FirstOrDefault(x => x.GetType().FullName == selName);
+		public override IEnumerable<DesignationDef> AllOptions() => base.AllOptions().Where(def => DesignatorFor(def) != null || extraCanDesignateQueries.ContainsKey(def));
 	}
 
 	public class ThingQueryFreshness : ThingQueryDropDown<RotStage>
