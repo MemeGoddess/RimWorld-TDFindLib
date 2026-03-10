@@ -382,7 +382,7 @@ namespace TD_Find_Lib
 		//Probably a good filter
 		public static bool ValidDef(ThingDef def) =>
 			(def.category != ThingCategory.Ethereal || def.selectable) && // anything EtherealThingBase that isn't selectable is out. e.g. Flashstorms
-			ValidType(def.thingClass) &&
+				ValidType(def.thingClass) &&
 			def.drawerType != DrawerType.None &&  //non-drawers are weird abstract things.
 			def.category != ThingCategory.PsychicEmitter; //Solar pinhole why? can't you stay ThingCategory.Ethereal
 
@@ -399,7 +399,6 @@ namespace TD_Find_Lib
 			&&
 			!(
 				// Some deeper subclasses are bad, so blacklist them:
-				typeof(Mechlink).IsAssignableFrom(type) || // Now this is one tiny class
 				typeof(OrbitalStrike).IsAssignableFrom(type) ||
 				typeof(Skyfaller).IsAssignableFrom(type) ||
 				typeof(Tornado).IsAssignableFrom(type) ||

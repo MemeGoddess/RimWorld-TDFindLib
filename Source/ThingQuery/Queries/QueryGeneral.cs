@@ -398,6 +398,10 @@ namespace TD_Find_Lib
 		protected override void PostProcess()
 		{
 			base.PostProcess();
+
+			if (Find.CurrentMap == null)
+				return;
+
 			if (extraOption == 0 && sel == null && selName != SaveLoadXmlConstants.IsNullAttributeName)
 				sel = ResolveRef(null);
 		}
