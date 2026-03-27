@@ -103,7 +103,7 @@ namespace TD_Find_Lib
 			// Queries that depend on other mods (not expansions that are included here)
 			bool FromMod(ThingQuerySelectableDef sDef)
 			{
-				// if (sDef is not ThingQueryDef qDef) return false;
+				if (sDef is not ThingQueryDef) return false;
 
 				// Eventually someone will make a mod that defines a ThingQueryDef
 				if (sDef.modContentPack != basePack) return true;
