@@ -1423,12 +1423,18 @@ namespace TD_Find_Lib
 	[StaticConstructorOnStartup]
 	public class ThingQueryCustom : ThingQuery
 	{
-		public static readonly List<Type> thingSubclasses;
+		public static List<Type> thingSubclasses;
 		static ThingQueryCustom()
+		{
+			if(Settings.QueryCustomSetup)
+				PopulateSubclasses();
+		}
+
+		static void PopulateSubclasses()
 		{
 			thingSubclasses = new();
 			foreach (Type thingType in new Type[] { typeof(Thing) }
-					.Concat(typeof(Thing).AllSubclasses().Where(ValidType)))
+				         .Concat(typeof(Thing).AllSubclasses().Where(ValidType)))
 			{
 				if (FieldData.FieldsFor(thingType).Any())
 					thingSubclasses.Add(thingType);
@@ -1593,8 +1599,11 @@ namespace TD_Find_Lib
 				if(!automated)
 					member.PostSelected();
 
-				UI.UnfocusCurrentControl();
-				Focus();  //next frame
+				if (UnityData.IsInMainThread)
+				{
+					UI.UnfocusCurrentControl();
+					Focus();  //next frame
+				}
 
 				// Keep nextType in case you want to change the compared field
 				memberStr = "";
@@ -1687,6 +1696,9 @@ namespace TD_Find_Lib
 		private bool keepAliveSuggestions;
 		protected override bool DrawMain(Rect rect, bool locked, Rect fullRect)
 		{
+			if (thingSubclasses == null)
+				LongEventHandler.QueueLongEvent(PopulateSubclasses, "TD.SetupCustomQueryOnStartupLongEvent", true, null);
+
 			RowPrependNOT();
 
 			// Cast the thing (so often useful it's always gonna be here)

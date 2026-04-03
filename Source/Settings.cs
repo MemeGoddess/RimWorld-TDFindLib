@@ -18,6 +18,8 @@ namespace TD_Find_Lib
 
 		public static bool FloatSubMenuInstalled = false;
 
+		public static bool QueryCustomSetup = false;
+
 		//Don't touch my searches
 		internal List<SearchGroup> searchGroups;
 		public Settings()
@@ -81,6 +83,8 @@ namespace TD_Find_Lib
 			ref onlyAvailable,
 			"TD.ForExampleDontShowTheOptionMadeFromPlasteelIfNothingIsMadeFromPlasteel".Translate());
 
+			listing.CheckboxLabeled("TD.SetupCustomQueryOnStartup".Translate(), ref QueryCustomSetup, "TD.SetupCustomQueryOnStartupTooltip".Translate());
+
 			listing.Gap();
 
 			if (listing.ButtonTextLabeled("TD.ViewQuerySearchLibrary".Translate(), "TD.View".Translate()))
@@ -127,6 +131,7 @@ namespace TD_Find_Lib
 			Scribe_Values.Look(ref warnedListing, "warnedListing", false);
 			Scribe_Values.Look(ref firstUse, "firstUse", false);
 			Scribe_Values.Look(ref warnedModdedFilterLibrary, "warnedModdedFilterLibrary", false);
+			Scribe_Values.Look(ref QueryCustomSetup, "QueryCustomSetup");
 
 			Scribe_Collections.Look(ref searchGroups, "searchGroups", LookMode.Deep, "??Group Name??", this);
 			

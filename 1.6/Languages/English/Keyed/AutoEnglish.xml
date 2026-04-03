@@ -198,5 +198,9 @@ You should only use this if you know what the code does. Usually, Custom Filter 
 	<TD.0Options>{0} options</TD.0Options>
 	<TD.NoOptions>No options!</TD.NoOptions>
 	<TD.DropwdownAllOptions>ALL OPTIONS</TD.DropwdownAllOptions>
-	
+
+	<TD.SetupCustomQueryOnStartup>Setup Custom Query on startup</TD.SetupCustomQueryOnStartup>
+	<TD.SetupCustomQueryOnStartupTooltip>Custom Queries require a lot of reflection, which takes a long time to generate on startup.</TD.SetupCustomQueryOnStartupTooltip>
+	<TD.SetupCustomQueryOnStartupLongEvent>Generating Custom Query Fields</TD.SetupCustomQueryOnStartupLongEvent>
+
 </LanguageData>
