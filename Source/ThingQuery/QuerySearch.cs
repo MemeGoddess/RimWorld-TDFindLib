@@ -78,6 +78,7 @@ namespace TD_Find_Lib
 				listType = SearchListType.Selectable;
 
 			Scribe_Collections.Look(ref searchMaps, "searchMaps", LookMode.Reference);
+			searchMaps.RemoveAll(map => map == null);
 		}
 	}
 
@@ -385,10 +386,10 @@ For MOST searches you'll want to set that to something else, like ""Searching Th
 
 			if (AllMaps())
 				sb.Append("TD.AllMaps".Translate());
-			else if (result.resultMaps.Count > 0)
-				sb.Append(string.Join(", ", result.resultMaps.Select(m => m.Parent.LabelCap)));
-			else if (parameters.searchMaps.Count > 0)
-				sb.Append(string.Join(", ", parameters.searchMaps.Select(m => m.Parent.LabelCap)));
+			else if (result.resultMaps.Any(x => x != null))
+				sb.Append(string.Join(", ", result.resultMaps.Where(x => x != null).Select(m => m.Parent.LabelCap)));
+			else if (parameters.searchMaps.Any(x => x != null))
+				sb.Append(string.Join(", ", parameters.searchMaps.Where(x => x != null).Select(m => m.Parent.LabelCap)));
 			else return "";
 
 			//Don't write "Current Map", doesn't look good. It is "unknown" until searched anyway
