@@ -1,0 +1,15 @@
+name: RimWorld Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - "main"
+      - "master"
+
+jobs:
+  deploy:
+    uses: node/WorkshopMods/.forgejo/workflows/pipeline.yml@main
+    secrets: inherit
+    with:
+      workshopId: "3529443295"
+      excluded-project-files: "ModSupport/CAIFOW/CAIFOW.csproj,ModSupport/LTOColonyGroups/LTOColonyGroups.csproj,ModSupport/FloatSubMenu/FloatSubMenu.csproj"

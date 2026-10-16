@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Verse;
 using RimWorld;
+using TD_Find_Lib.Compat;
 
 namespace TD_Find_Lib
 {
@@ -205,7 +207,7 @@ namespace TD_Find_Lib
 
 			// Config Error check
 			foreach (var queryType in GenTypes.AllSubclassesNonAbstract(typeof(ThingQuery)))
-				if (!queryDefForType.ContainsKey(queryType))
+				if (!queryDefForType.ContainsKey(queryType) && !queryType.HasAttribute<IgnoreMissingAttribute>())
 					Verse.Log.Error($"TDFindLib here, uhhh, there is no ThingQueryDef for {queryType}, thought you should know.");
 		}
 
