@@ -207,8 +207,8 @@ namespace TD_Find_Lib
 
 			// Config Error check
 			foreach (var queryType in GenTypes.AllSubclassesNonAbstract(typeof(ThingQuery)))
-				if (!queryDefForType.ContainsKey(queryType) && !queryType.HasAttribute<IgnoreMissingAttribute>())
-					Verse.Log.Error($"TDFindLib here, uhhh, there is no ThingQueryDef for {queryType}, thought you should know.");
+				if (!queryDefForType.ContainsKey(queryType) && queryType.GetCustomAttribute<IgnoreMissingAttribute>() == null)
+					Verse.Log.Warning($"TDFindLib here, uhhh, there is no ThingQueryDef for {queryType}, thought you should know.");
 		}
 
 		public static IEnumerable<ThingQuerySelectableDef> RootQueries => rootSelectableQueries;
