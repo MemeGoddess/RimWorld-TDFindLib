@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<Category_PawnProp.label>個人資料</Category_PawnProp.label>
+	<Category_PawnStats.label>數值</Category_PawnStats.label>
+	<Category_PawnStatus.label>狀態</Category_PawnStatus.label>
+	<Category_PawnGuest.label>訪客</Category_PawnGuest.label>
+	<Category_PawnAssign.label>分配</Category_PawnAssign.label>
+	<Category_AnimalProp.label>動物資料</Category_AnimalProp.label>
+	<Category_ItemInfo.label>物品資訊</Category_ItemInfo.label>
+	<Category_BuildingInfo.label>建築資訊</Category_BuildingInfo.label>
+	<Category_Plants.label>植物與食物</Category_Plants.label>
+	<Category_Location.label>位置</Category_Location.label>
+	<Category_Mod.label>擴充/模組</Category_Mod.label>
+	<Category_devmode.label>開發者/作弊選項</Category_devmode.label>
+</LanguageData>

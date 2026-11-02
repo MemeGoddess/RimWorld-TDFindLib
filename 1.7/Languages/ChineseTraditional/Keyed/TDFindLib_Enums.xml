@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<TD.SearchListType.Selectable>所有東西</TD.SearchListType.Selectable>
+	<TD.SearchListType.All>真的是所有東西</TD.SearchListType.All>
+	<TD.SearchListType.Items>物品</TD.SearchListType.Items>
+	<TD.SearchListType.Junk>雜物</TD.SearchListType.Junk>
+	<TD.SearchListType.Everyone>所有人</TD.SearchListType.Everyone>
+	<TD.SearchListType.Buildings>建築</TD.SearchListType.Buildings>
+	<TD.SearchListType.Natural>自然物</TD.SearchListType.Natural>
+	<TD.SearchListType.Plants>植物</TD.SearchListType.Plants>
+	<TD.SearchListType.Inventory>隨身物品</TD.SearchListType.Inventory>
+	<TD.SearchListType.Haulables>可搬運的</TD.SearchListType.Haulables>
+	<TD.SearchListType.Mergables>可合併的堆疊</TD.SearchListType.Mergables>
+	<TD.SearchListType.FilthInHomeArea>規劃生活區內的髒污</TD.SearchListType.FilthInHomeArea>
+
+	<TD.ForbiddenType.Forbidden>禁止的</TD.ForbiddenType.Forbidden>
+	<TD.ForbiddenType.Allowed>允許的</TD.ForbiddenType.Allowed>
+	<TD.ForbiddenType.Forbiddable>可禁止的</TD.ForbiddenType.Forbiddable>
+
+	<TD.ListCategory.Person>人</TD.ListCategory.Person>
+	<TD.ListCategory.Animal>動物</TD.ListCategory.Animal>
+	<TD.ListCategory.Item>物品</TD.ListCategory.Item>
+	<TD.ListCategory.Building>建築</TD.ListCategory.Building>
+	<TD.ListCategory.Natural>自然物</TD.ListCategory.Natural>
+	<TD.ListCategory.Plant>植物</TD.ListCategory.Plant>
+	<TD.ListCategory.Other>其他</TD.ListCategory.Other>
+
+	<TD.MineableType.Resource>資源</TD.MineableType.Resource>
+	<TD.MineableType.Rock>岩石</TD.MineableType.Rock>
+	<TD.MineableType.All>全部</TD.MineableType.All>
+
+	<TD.DraftQuery.Drafted>已徵召</TD.DraftQuery.Drafted>
+	<TD.DraftQuery.Undrafted>未徵召</TD.DraftQuery.Undrafted>
+	<TD.DraftQuery.Controllable>可控制</TD.DraftQuery.Controllable>
+
+	<TD.RacePropsQuery.Predator>掠食者</TD.RacePropsQuery.Predator>
+	<TD.RacePropsQuery.Prey>獵物</TD.RacePropsQuery.Prey>
+	<TD.RacePropsQuery.Herd>群居</TD.RacePropsQuery.Herd>
+	<TD.RacePropsQuery.Pack>貨運動物</TD.RacePropsQuery.Pack>
+	<TD.RacePropsQuery.Wildness>野性</TD.RacePropsQuery.Wildness>
+	<TD.RacePropsQuery.Petness>寵物度</TD.RacePropsQuery.Petness>
+	<TD.RacePropsQuery.Trainability>智能程度</TD.RacePropsQuery.Trainability>
+	<TD.RacePropsQuery.Intelligence>智力</TD.RacePropsQuery.Intelligence>
+	<TD.RacePropsQuery.RevengeTame>馴服失敗反擊率</TD.RacePropsQuery.RevengeTame>
+	<TD.RacePropsQuery.RevengeHarm>受傷反擊率</TD.RacePropsQuery.RevengeHarm>
+
+	<TD.ProgressType.Milkable>可擠奶</TD.ProgressType.Milkable>
+	<TD.ProgressType.Shearable>可剪毛</TD.ProgressType.Shearable>
+	<TD.ProgressType.EggHatch>孵化進度</TD.ProgressType.EggHatch>
+
+	<TD.QueryPawnProperty.IsColonist>是殖民者</TD.QueryPawnProperty.IsColonist>
+	<TD.QueryPawnProperty.IsFreeColonist>是自由殖民者</TD.QueryPawnProperty.IsFreeColonist>
+	<TD.QueryPawnProperty.IsPrisonerOfColony>是你的俘虜</TD.QueryPawnProperty.IsPrisonerOfColony>
+	<TD.QueryPawnProperty.IsSlaveOfColony>是你的奴隸</TD.QueryPawnProperty.IsSlaveOfColony>
+	<TD.QueryPawnProperty.IsPrisoner>是俘虜</TD.QueryPawnProperty.IsPrisoner>
+	<TD.QueryPawnProperty.IsSlave>是奴隸</TD.QueryPawnProperty.IsSlave>
+	<TD.QueryPawnProperty.IsColonyMech>是你的機械體</TD.QueryPawnProperty.IsColonyMech>
+	<TD.QueryPawnProperty.Downed>倒地</TD.QueryPawnProperty.Downed>
+	<TD.QueryPawnProperty.Dead>死亡</TD.QueryPawnProperty.Dead>
+	<TD.QueryPawnProperty.HasPsylink>擁有心靈連結</TD.QueryPawnProperty.HasPsylink>
+
+	<TD.AbilityFilterType.Has>已習得</TD.AbilityFilterType.Has>
+	<TD.AbilityFilterType.Cooldown>冷卻中</TD.AbilityFilterType.Cooldown>
+	<TD.AbilityFilterType.CanCast>可使用</TD.AbilityFilterType.CanCast>
+	<TD.AbilityFilterType.Active>生效中</TD.AbilityFilterType.Active>
+	<TD.AbilityFilterType.Charges>有剩餘充能</TD.AbilityFilterType.Charges>
+
+	<TD.SubmatchType.Has>有任何</TD.SubmatchType.Has>
+	<TD.SubmatchType.Any>任一</TD.SubmatchType.Any>
+	<TD.SubmatchType.All>全部</TD.SubmatchType.All>
+
+	<TD.AnyAllOrNone.Any>至少一個</TD.AnyAllOrNone.Any>
+	<TD.AnyAllOrNone.All>全部</TD.AnyAllOrNone.All>
+	<TD.AnyAllOrNone.None>都沒有</TD.AnyAllOrNone.None>
+
+	<TD.ScheduleFilterType.Current>目前為</TD.ScheduleFilterType.Current>
+	<TD.ScheduleFilterType.AllScheduleIs>計畫符合</TD.ScheduleFilterType.AllScheduleIs>
+	<TD.ScheduleFilterType.AnyScheduleNot>計畫不符合</TD.ScheduleFilterType.AnyScheduleNot>
+
+	<TD.EquipmentFilterType.Any>裝備或穿著</TD.EquipmentFilterType.Any>
+	<TD.EquipmentFilterType.Primary>裝備的武器</TD.EquipmentFilterType.Primary>
+	<TD.EquipmentFilterType.Equipment>其他裝備</TD.EquipmentFilterType.Equipment>
+	<TD.EquipmentFilterType.Apparel>衣物</TD.EquipmentFilterType.Apparel>
+	<TD.EquipmentFilterType.Inventory>隨身物品</TD.EquipmentFilterType.Inventory>
+	<TD.EquipmentFilterType.Carried>手上搬運的</TD.EquipmentFilterType.Carried>
+	<TD.EquipmentFilterType.Unused>搬運中或隨身物品</TD.EquipmentFilterType.Unused>
+
+	<TD.Intelligence.Animal>動物</TD.Intelligence.Animal>
+	<TD.Intelligence.ToolUser>會用工具</TD.Intelligence.ToolUser>
+	<TD.Intelligence.Humanlike>類人</TD.Intelligence.Humanlike>
+	<TD.Gender.Male>男性</TD.Gender.Male>
+	<TD.Gender.Female>女性</TD.Gender.Female>
+	<TD.Gender.None>無性別</TD.Gender.None>
+
+</LanguageData>

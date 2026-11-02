@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<TD.TDFindLib>TD尋找函式庫</TD.TDFindLib>
+	<TD.Delete0>刪除{0}？</TD.Delete0>
+	<TD.StopRefresh0>停止重新整理{0}？</TD.StopRefresh0>
+	<TD.AllMaps>所有地圖</TD.AllMaps>
+	<TD.CurrentMap>目前地圖</TD.CurrentMap>
+	<TD.ChosenMaps>選定的地圖</TD.ChosenMaps>
+	<TD.IncludeShort>含</TD.IncludeShort>
+	<TD.ExcludeShort>排除</TD.ExcludeShort>
+	<TD.DeleteThisQuery>刪除這個條件</TD.DeleteThisQuery>
+	<TD.EnableThisQuery>啟用這個條件</TD.EnableThisQuery>
+	<TD.IncludeOrExcludeThingsMatchingThisQuery>包含或排除符合這個條件的東西</TD.IncludeOrExcludeThingsMatchingThisQuery>
+	<TD.SearchTriedToLoad>TDFindLib發生問題！搜尋「{0}」嘗試載入名為「{2}」的「{1}」條件，但找不到。</TD.SearchTriedToLoad>
+	<TD.SearchTriedToLoadOnMap>搜尋「{0}」嘗試在{3}載入名為「{2}」的「{1}」條件，但找不到。</TD.SearchTriedToLoadOnMap>
+	<TD.Spoils>會腐壞</TD.Spoils>
+	<TD.Refrigerated>冷藏中</TD.Refrigerated>
+	<TD.Frozen>冷凍中</TD.Frozen>
+	<TD.Player>玩家</TD.Player>
+	<TD.Mechanoid>機械族</TD.Mechanoid>
+	<TD.Insectoid>蟲族</TD.Insectoid>
+	<TD.NoFaction>無派系</TD.NoFaction>
+	<TD.NotMadeFromStuff>不是由材料製成</TD.NotMadeFromStuff>
+	<TD.AnyStockpile>任何儲存區</TD.AnyStockpile>
+	<TD.AnyGrowingZone>任何種植區</TD.AnyGrowingZone>
+	<TD.Opened>開啟中</TD.Opened>
+	<TD.BlockedOpen>被卡住無法關閉</TD.BlockedOpen>
+	<TD.IncludeThingsThatMatch>包含符合</TD.IncludeThingsThatMatch>
+	<TD.ExcludeThingsThatMatch>排除符合</TD.ExcludeThingsThatMatch>
+	<TD.OfTheseQueries>下列條件的東西：</TD.OfTheseQueries>
+	<TD.TheThingHoldingThis>持有它的東西</TD.TheThingHoldingThis>
+	<TD.AnythingThisIsHolding>它持有的任何東西</TD.AnythingThisIsHolding>
+	<TD.Matches>符合</TD.Matches>
+	<TD.Of>：</TD.Of>
+	<TD.AnythingXStepsNearbyMatchesPre>周圍</TD.AnythingXStepsNearbyMatchesPre>
+	<TD.AnythingXStepsNearbyMatchesPost>格內有任何東西符合</TD.AnythingXStepsNearbyMatchesPost>
+	<TD.From>來自</TD.From>
+	<TD.Invisible>（隱形）</TD.Invisible>
+	<TD.Cold>寒冷</TD.Cold>
+	<TD.ALittleCold>有點冷</TD.ALittleCold>
+	<TD.Comfortable>舒適</TD.Comfortable>
+	<TD.ALittleHot>有點熱</TD.ALittleHot>
+	<TD.Hot>炎熱</TD.Hot>
+	<TD.IsPrisoner>是俘虜</TD.IsPrisoner>
+	<TD.InCell>在牢房中</TD.InCell>
+	<TD.ThereAreNoOptionsAvailablePerhapsYouShouldUncheckOnlyAvailableThings>沒有可用的選項（點擊時按住Shift可以顯示所有選項）</TD.ThereAreNoOptionsAvailablePerhapsYouShouldUncheckOnlyAvailableThings>
+	<TD.LockEditing>鎖定編輯</TD.LockEditing>
+	<TD.Listing>搜尋範圍：</TD.Listing>
+	<TD.Name>名稱：</TD.Name>
+	<TD.OnlyShowQueryOptionsForAvailableThings>只列出現存東西的選項（按住Shift反轉）</TD.OnlyShowQueryOptionsForAvailableThings>
+	<TD.ForExampleDontShowTheOptionMadeFromPlasteelIfNothingIsMadeFromPlasteel>例如選擇條件選項時，如果沒有任何東西是用玻璃鋼製成的，就不顯示「由玻璃鋼製成」這個選項。\n\n按住Shift點擊選項，可以讓這次點擊反轉這項設定。</TD.ForExampleDontShowTheOptionMadeFromPlasteelIfNothingIsMadeFromPlasteel>
+	<TD.AddNewQuery...>新增條件…</TD.AddNewQuery...>
+	<TD.AnyOption>任一</TD.AnyOption>
+	<TD.AllOptions>全部</TD.AllOptions>
+	<TD.AnyValue>任意</TD.AnyValue>
+	<TD.LabelCountThings>{0}個東西</TD.LabelCountThings>
+	<TD.SelectAllGameAllowsUpTo>全選（遊戲最多允許{0}個）</TD.SelectAllGameAllowsUpTo>
+	<TD.Refresh>重新整理</TD.Refresh>
+	<TD.ContinuousRefreshAboutEverySecond>持續重新整理（約每秒一次）</TD.ContinuousRefreshAboutEverySecond>
+	<TD.SavedSearches>已儲存的搜尋</TD.SavedSearches>
+	<TD.CopyNameSuffix>（副本）</TD.CopyNameSuffix>
+	<TD.Settings>設定：</TD.Settings>
+	<TD.ViewQuerySearchLibrary>開啟已儲存的搜尋庫</TD.ViewQuerySearchLibrary>
+	<TD.View>檢視</TD.View>
+	<TD.SaveSearches>儲存到搜尋庫</TD.SaveSearches>
+	<TD.LoadSearches>從搜尋庫載入</TD.LoadSearches>
+	<TD.SaveTo0>儲存到{0}</TD.SaveTo0>
+	<TD.TDFindLibrary>TD尋找函式庫</TD.TDFindLibrary>
+	<TD.SaveChangesTo0>要儲存對{0}的變更嗎？</TD.SaveChangesTo0>
+	<TD.OverwriteSearch>覆寫搜尋</TD.OverwriteSearch>
+	<TD.SaveAsCopy>另存為副本</TD.SaveAsCopy>
+	<TD.OpenTheLibraryOfSearches>開啟搜尋庫</TD.OpenTheLibraryOfSearches>
+	<TD.ImportSearchFrom>從…匯入搜尋</TD.ImportSearchFrom>
+	<TD.ExportSearchTo>將搜尋匯出到…</TD.ExportSearchTo>
+	<TD.ImportGroupFrom>從…匯入群組</TD.ImportGroupFrom>
+	<TD.ExportGroupTo>將群組匯出到…</TD.ExportGroupTo>
+	<TD.ImportLibraryFrom>從…匯入搜尋庫</TD.ImportLibraryFrom>
+	<TD.ExportLibraryTo>將搜尋庫匯出到…</TD.ExportLibraryTo>
+	<TD.CopyToClipboard>複製到剪貼簿</TD.CopyToClipboard>
+	<TD.PasteFromClipboard>從剪貼簿貼上</TD.PasteFromClipboard>
+	<TD.AND>且</TD.AND>
+	<TD.OR>或</TD.OR>
+	<TD.NOT>非</TD.NOT>
+	<TD.HeyManWeHaveToSearchSomewhere>喂，總得選個地方搜尋吧</TD.HeyManWeHaveToSearchSomewhere>
+	<TD.Searching>搜尋：</TD.Searching>
+	<TD.Named>名稱：</TD.Named>
+	<TD.HostIs>主人為</TD.HostIs>
+	<TD.FactionIs>為</TD.FactionIs>
+	<TD.InstallingCategory>（安裝中）</TD.InstallingCategory>
+	<TD.BlueprintCategory>（藍圖）</TD.BlueprintCategory>
+	<TD.FrameCategory>（框架）</TD.FrameCategory>
+	<TD.BlueprintCategoryTerrain>（地板藍圖）</TD.BlueprintCategoryTerrain>
+	<TD.FrameCategoryTerrain>（地板框架）</TD.FrameCategoryTerrain>
+	<TD.MiscCategory>其他</TD.MiscCategory>
+	<TD.LivingCategory>生物</TD.LivingCategory>
+	<TD.MineableCategory>可開採</TD.MineableCategory>
+	<TD.OtherCategory>（其他）</TD.OtherCategory>
+	<TD.TDFindLibSearchLibrary>TD尋找函式庫：搜尋庫</TD.TDFindLibSearchLibrary>
+	<TD.NewGroup>新群組</TD.NewGroup>
+	<TD.NameForNewGroup>新群組名稱</TD.NameForNewGroup>
+	<TD.AddNewGroup>新增群組…</TD.AddNewGroup>
+	<TD.NewSearch>新搜尋</TD.NewSearch>
+	<TD.NameForNewSearch>新搜尋名稱</TD.NameForNewSearch>
+	<TD.EditThisSearch>編輯這個搜尋</TD.EditThisSearch>
+	<TD.ActiveSearches>執行中的搜尋</TD.ActiveSearches>
+	<TD.ViewThisSearch>檢視這個搜尋</TD.ViewThisSearch>
+	<TD.OpenTheModControllingThisSearch>開啟控制這個搜尋的模組</TD.OpenTheModControllingThisSearch>
+	<TD.StopThisSearchFromRunningITrustYouKnowWhatYoureDoing>停止執行這個搜尋（相信你知道自己在做什麼）</TD.StopThisSearchFromRunningITrustYouKnowWhatYoureDoing>
+	<TD.Every0Ticks>每{0}刻</TD.Every0Ticks>
+	<TD.SetRefreshPeriodInTicks>設定重新整理間隔（刻）</TD.SetRefreshPeriodInTicks>
+	<TD.GodModeIsAllowingYouToSeeThingsInFoggedAreasThingsYouCantNormallyKnowAndVariousOtherWeirdThings>上帝模式讓你能看到迷霧區域裡的東西、平常無從得知的東西，以及各種其他奇怪的東西</TD.GodModeIsAllowingYouToSeeThingsInFoggedAreasThingsYouCantNormallyKnowAndVariousOtherWeirdThings>
+	<TD.Editing>編輯中</TD.Editing>
+	<TD.ListThingsMatchingThisSearch>列出符合這個搜尋的東西</TD.ListThingsMatchingThisSearch>
+	<TD.Viewing>檢視中</TD.Viewing>
+	<TD.MatchingAllFilters>符合所有條件</TD.MatchingAllFilters>
+	<TD.MatchingAnyFilter>符合任一條件</TD.MatchingAnyFilter>
+	<TD.SearchCurrentMapOnly>只搜尋目前地圖</TD.SearchCurrentMapOnly>
+	<TD.SearchAllMaps>搜尋所有地圖</TD.SearchAllMaps>
+	<TD.SearchChosenMapsOnceLoaded>搜尋選定的地圖（載入後）</TD.SearchChosenMapsOnceLoaded>
+	<TD.AFilterIsForcingThisSearchToRunOnTheCurrentMapOnly>有條件強制這個搜尋只在目前地圖執行</TD.AFilterIsForcingThisSearchToRunOnTheCurrentMapOnly>
+	<TD.Rename0>重新命名{0}</TD.Rename0>
+	<TD.Missing01>找不到{0}：{1}？</TD.Missing01>
+	<TD.Filter01NeedsAMap>條件{0}：{1}需要地圖，卻收到空的地圖？</TD.Filter01NeedsAMap>
+	<TD.Missing01On2>在{2}中找不到{0}：{1}？</TD.Missing01On2>
+	<TD.Search0TriedToLoad1FilterButNoMapToFind2>搜尋{0}嘗試載入{1}條件，但沒有提供地圖來尋找{2}</TD.Search0TriedToLoad1FilterButNoMapToFind2>
+	<TD.AnyAggresive>任何攻擊性</TD.AnyAggresive>
+	<TD.IsHelper>是幫手</TD.IsHelper>
+	<TD.IsLodger>是寄宿者</TD.IsLodger>
+	<TD.SecurePrisoner>確保俘虜</TD.SecurePrisoner>
+	<TD.SecureSlave>確保奴隸</TD.SecureSlave>
+	<TD.AnyBleeding>任何流血</TD.AnyBleeding>
+	<TD.KeepChanges>保留變更？</TD.KeepChanges>
+
+	<TD.AnyPassion>任何熱情度</TD.AnyPassion>
+	<TD.IgnorePassion>忽略熱情度</TD.IgnorePassion>
+	<TD.Resource>資源</TD.Resource>
+	<TD.Rock>岩石</TD.Rock>
+	<TD.Mineable>可開採</TD.Mineable>
+	<TD.PermitIsReady>權限可用</TD.PermitIsReady>
+	<TD.HoldsPermit>持有權限</TD.HoldsPermit>
+	<TD.ContainerBuildings>容器</TD.ContainerBuildings>
+	<TD.Structures>結構</TD.Structures>
+	<TD.AbilityLevel01>等級{0}：{1}</TD.AbilityLevel01>
+
+	<TD.Seconds>秒</TD.Seconds>
+	<TD.Hours>小時</TD.Hours>
+	<TD.Days>天</TD.Days>
+	<TD.Years>年</TD.Years>
+
+	<TD.DefLabel.RemovePaintBuilding>移除建築塗裝</TD.DefLabel.RemovePaintBuilding>
+	<TD.DefLabel.RemovePaintFloor>移除地板塗裝</TD.DefLabel.RemovePaintFloor>
+
+	<TD.PlayersIdeoligion>玩家的理念</TD.PlayersIdeoligion>
+	<TD.OtherIdeoligion>其他理念</TD.OtherIdeoligion>
+	<TD.PersonsIdeoligion>他們的理念</TD.PersonsIdeoligion>
+	<TD.CanBe>可擔任</TD.CanBe>
+	<TD.HasRole>擔任職位</TD.HasRole>
+	<TD.WantsApparelForRole>想要職位服裝</TD.WantsApparelForRole>
+	<TD.AnyNonLeaderRole>任何非領袖職位</TD.AnyNonLeaderRole>
+	<TD.AnyLeaderRole>任何領袖職位</TD.AnyLeaderRole>
+	<TD.OwnersIdeoligion>擁有者的理念</TD.OwnersIdeoligion>
+	<TD.Mood>心情</TD.Mood>
+	<TD.Opinion>好感度</TD.Opinion>
+	<TD.Level01>等級{0}：{1}</TD.Level01>
+	<TD.Chronological>實際年齡</TD.Chronological>
+	<TD.Biological>生理年齡</TD.Biological>
+
+	<TD.MechsOverseer>機械體的監督者</TD.MechsOverseer>
+	<TD.MechanitorsMechs>御機使的機械體</TD.MechanitorsMechs>
+	<TD.AnyCommon>任何常見</TD.AnyCommon>
+	<TD.NoGene>無基因</TD.NoGene>
+	<TD.AnyGene>任何基因</TD.AnyGene>
+	<TD.Is>為</TD.Is>
+	<TD.As>作為</TD.As>
+	<TD.WorkMechanoid>工作機械體</TD.WorkMechanoid>
+	<TD.ReserverMatches>預留者符合</TD.ReserverMatches>
+	<TD.IsReserved>已被預留</TD.IsReserved>
+	<TD.Addiction>成癮</TD.Addiction>
+	<TD.Implant>植入物</TD.Implant>
+	<TD.Injury>傷勢</TD.Injury>
+	<TD.High>藥效中</TD.High>
+	<TD.Sickness>疾病</TD.Sickness>
+	<TD.UnknownModHediff>未知模組</TD.UnknownModHediff>
+
+	<TD.WarnCustom>自訂條件是進階功能，需要了解遊戲程式碼。它讓搜尋可以存取任何C# 欄位或屬性來比較數值，幾乎所有東西都能存取，連模組內容也行。
+
+我不打算提供遊戲程式碼的導覽，因為天啊，它實在大到講不完。簡單來說，你應該先知道自己要找什麼，而不是在無窮無盡的選項裡亂逛。很多選項根本沒用，有些很慢，有些原本在遊戲中就該是隱藏的。這是一份完整的清單，並沒有為了方便使用而篩選過。</TD.WarnCustom>
+
+	<TD.WarnExtension>聽好，自訂條件已經夠進階了，而這個還是擴充方法。
+
+只有在你知道這段程式碼做什麼時才使用它。自訂條件通常只讓你存取欄位和屬性，也就是不會改動任何東西的程式碼；擴充方法則可能會改動東西。你不會希望一個搜尋去改動東西，所以你應該清楚自己用的是哪個方法，並確認它只讀取資料。</TD.WarnExtension>
+	<TD.CouldNotFindDef0For123>找不到def {0}，用於（{1}）{2}.{3}</TD.CouldNotFindDef0For123>
+	<TD.CouldntFindType0>找不到型別{0}</TD.CouldntFindType0>
+	<TD.CouldntFindHowToHandle0>不知道如何處理{0}</TD.CouldntFindHowToHandle0>
+	<TD.0Options>{0}個選項</TD.0Options>
+	<TD.NoOptions>沒有選項！</TD.NoOptions>
+	<TD.DropwdownAllOptions>所有選項</TD.DropwdownAllOptions>
+
+	<TD.SetupCustomQueryOnStartup>啟動時建立自訂條件</TD.SetupCustomQueryOnStartup>
+	<TD.SetupCustomQueryOnStartupTooltip>自訂條件需要大量反射，在啟動時產生會花很多時間。</TD.SetupCustomQueryOnStartupTooltip>
+	<TD.SetupCustomQueryOnStartupLongEvent>正在產生自訂條件欄位</TD.SetupCustomQueryOnStartupLongEvent>
+
+</LanguageData>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<Query_MechanitorBandwidth.label>御機使頻寬</Query_MechanitorBandwidth.label>
+	<Query_MechOverseer.label>受控機械體／監督者</Query_MechOverseer.label>
+	<Query_MechWeightClass.label>機械體量級</Query_MechWeightClass.label>
+	<Query_MechBandwidthCost.label>機械體頻寬消耗</Query_MechBandwidthCost.label>
+	<Query_MechWorkMode.label>機械體工作模式</Query_MechWorkMode.label>
+	<Query_MechUncontrolled.label>機械體斷線</Query_MechUncontrolled.label>
+	<Query_Xenotype.label>異種人</Query_Xenotype.label>
+	<Query_Gene.label>基因</Query_Gene.label>
+</LanguageData>

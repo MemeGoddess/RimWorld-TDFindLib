@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<Query_Style.label>風格</Query_Style.label>
+	<Query_Ideoligion.label>理念</Query_Ideoligion.label>
+	<Query_Meme.label>理念含有模因</Query_Meme.label>
+	<Query_Precept.label>理念含有戒律</Query_Precept.label>
+	<Query_Role.label>理念職位</Query_Role.label>
+	<Query_IdeoXenotype.label>偏好的異種人</Query_IdeoXenotype.label>
+	<Query_VeneratedAnimal.label>聖獸</Query_VeneratedAnimal.label>
+	<Query_WeaponClass.label>武器類別</Query_WeaponClass.label>
+	<Query_WeaponClass.tooltip>理念偏好武器的武器類別</Query_WeaponClass.tooltip>
+	<Query_WeaponDisposition.label>武器偏好</Query_WeaponDisposition.label>
+	<Query_WeaponDisposition.tooltip>武器是否受你的理念或持有者的理念偏好；或某人是否正持有其理念偏好的武器</Query_WeaponDisposition.tooltip>
+	<Query_Gauranlen.label>高嵐樹</Query_Gauranlen.label>
+</LanguageData>

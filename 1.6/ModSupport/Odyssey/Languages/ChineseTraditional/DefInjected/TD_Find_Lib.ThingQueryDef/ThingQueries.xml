@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<Query_IsUnique.label>是獨特物品</Query_IsUnique.label>
+	<Query_GravshipFuel.label>重力船燃料 %</Query_GravshipFuel.label>
+	<Query_GravshipCapacity.label>重力船容量 %</Query_GravshipCapacity.label>
+	<Query_GravshipIsOnCooldown.label>重力船冷卻中</Query_GravshipIsOnCooldown.label>
+</LanguageData>

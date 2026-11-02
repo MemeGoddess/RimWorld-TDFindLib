@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<TD.BandwidthFilterType.Total>總量</TD.BandwidthFilterType.Total>
+	<TD.BandwidthFilterType.Used>已使用</TD.BandwidthFilterType.Used>
+	<TD.BandwidthFilterType.Available>可用</TD.BandwidthFilterType.Available>
+	<TD.GeneType.Either>任何基因</TD.GeneType.Either>
+	<TD.GeneType.Endogene>種系基因</TD.GeneType.Endogene>
+	<TD.GeneType.Xenogene>異種基因</TD.GeneType.Xenogene>
+	<TD.GeneHavingType.Active>生效中</TD.GeneHavingType.Active>
+	<TD.GeneHavingType.Inactive>未生效</TD.GeneHavingType.Inactive>
+	<TD.GeneHavingType.Has>擁有</TD.GeneHavingType.Has>
+</LanguageData>

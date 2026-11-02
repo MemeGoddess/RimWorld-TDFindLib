@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<Query_Royalty_Title.label>擁有頭銜</Query_Royalty_Title.label>
+	<Query_Royalty_TitleRange.label>頭銜範圍</Query_Royalty_TitleRange.label>
+	<Query_Royalty_TitleRequirement.label>未滿足的頭銜需求</Query_Royalty_TitleRequirement.label>
+	<Query_Royalty_Honor.label>榮譽</Query_Royalty_Honor.label>
+	<Query_Royalty_Permit.label>權限</Query_Royalty_Permit.label>
+	<Query_Royalty_PermitPoints.label>權限點數</Query_Royalty_PermitPoints.label>
+	<Query_Royalty_Psyfocus.label>精神力</Query_Royalty_Psyfocus.label>
+	<Query_Royalty_Entropy.label>神經熱</Query_Royalty_Entropy.label>
+</LanguageData>

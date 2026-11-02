@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<Query_IsMechanitor.label>是御機使</Query_IsMechanitor.label>
+	<Query_IsWorkMech.label>是工作機械體</Query_IsWorkMech.label>
+	<Query_MechEnergy.label>機械能量</Query_MechEnergy.label>
+	<Query_Xenogerm.label>沒有異種基因</Query_Xenogerm.label>
+</LanguageData>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<TD.IdeoXenotypeFilterType.Preferred>偏好</TD.IdeoXenotypeFilterType.Preferred>
+	<TD.IdeoXenotypeFilterType.Disliked>厭惡</TD.IdeoXenotypeFilterType.Disliked>
+	<TD.IdeoXenotypeFilterType.NoOpinion>無意見</TD.IdeoXenotypeFilterType.NoOpinion>
+	<TD.GauranlenFilterType.Connection>已連結</TD.GauranlenFilterType.Connection>
+	<TD.GauranlenFilterType.Mode>樹精種類為</TD.GauranlenFilterType.Mode>
+	<TD.GauranlenFilterType.Strength>連結強度</TD.GauranlenFilterType.Strength>
+	<TD.GauranlenFilterType.StrengthDesired>期望強度</TD.GauranlenFilterType.StrengthDesired>
+	<TD.GauranlenFilterType.MaxDryads>樹精上限</TD.GauranlenFilterType.MaxDryads>
+	<TD.GauranlenFilterType.CurDryads>樹精數量</TD.GauranlenFilterType.CurDryads>
+	<TD.GauranlenFilterType.TimeToDryad>距離下一隻樹精的天數</TD.GauranlenFilterType.TimeToDryad>
+</LanguageData>
